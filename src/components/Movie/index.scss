@@ -1,0 +1,58 @@
+@import '../../theme/variables.scss';
+
+@media (max-width: 575px) {
+  .movie {
+    width: 80%;
+    border: 4px solid $color-primary;
+    border-radius: 10px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: black;
+  }
+}
+
+@media (min-width: 576px) {
+  .movie {
+    width: 40%;
+    border: 4px solid $color-primary;
+    border-radius: 10px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: black;
+  }
+}
+
+@media (min-width: 800px) {
+  .movie {
+    width: 27%;
+    border: 4px solid $color-primary;
+    border-radius: 10px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: black;
+  }
+}
+
+.movie:hover {
+  transform: scale(1.05);
+}
+
+.movie__pic {
+  width: 100%;
+  height: 20rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+}
+
+.movie__adder {
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie__adder p {
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  padding-right: 1rem;
+}

@@ -1,0 +1,27 @@
+.allMoviesRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.allMoviesRow__description {
+  margin: 10px;
+}
+
+.allMoviesRow__filter {
+  margin: 20px;
+}
+
+.movies {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.h3 {
+  display: inline;
+  margin: 10px;
+}

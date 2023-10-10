@@ -1,13 +1,27 @@
-import React from 'react';
-
 import './index.scss';
+import Layout from 'Components/Layout';
+import MovieList from 'Components/MovieList';
+import Movies from 'Data/movies';
+import React from 'react';
+import { useState } from 'react';
 
-const Home = () => (
-  <div className="home">
-    <h1>
-      Welcome to the Home Page of the React Bootcamp App
-    </h1>
-  </div>
-);
+const Home = () => {
+  const [selectedYear, setSelectedYear] = useState(null);
+
+  const handleYearChange = (event) => {
+    const year = event.target.value;
+    setSelectedYear(year);
+  };
+
+  return (
+    <div className="home">
+      <MovieList
+        movies={Movies}
+        selectedYear={selectedYear}
+        onYearChange={handleYearChange}
+      />
+    </div>
+  );
+};
 
 export default Home;

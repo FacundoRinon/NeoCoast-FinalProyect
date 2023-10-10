@@ -10,7 +10,7 @@
       "*": ["*"],
       "Components/*": ["components/*"],
       "Containers/*": ["containers/*"],
-      "Data/*": ["data/*"],
-    },
-  },
+      "Data/*": ["data/*"]
+    }
+  }
 }

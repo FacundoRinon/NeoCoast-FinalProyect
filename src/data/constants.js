@@ -2,4 +2,6 @@
 
 export const ROUTES = {
   home: '/',
+  movieInfo: '/movie/:id',
+  practico4: '/practico4',
 };

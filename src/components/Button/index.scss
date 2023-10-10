@@ -1,0 +1,36 @@
+@import '../../theme/variables.scss';
+
+#button {
+  width: 25%;
+  border: 1px black solid;
+  border-radius: 10px;
+  padding: 8px;
+  margin: 5px;
+}
+
+.custom-button {
+  background-color: $color-primary;
+  color: white;
+
+  &--secondary {
+    background-color: $color-secondary;
+    color: white;
+  }
+
+  &--disabled {
+    background-color: gray;
+    color: black;
+  }
+}
+
+// .button-primary {
+//   background-color: red;
+// }
+
+// .button-secondary {
+//   background-color: blue;
+// }
+
+.button-disabled {
+  background-color: gray;
+}
