@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Movie = ({ movie, favorites, setFavorites }) => {
+  const [disabled, setDisabled] = useState(false);
+
   const addToFavorites = () => {
     setFavorites([...favorites, movie]);
+    setDisabled(true);
   };
-
-  console.log(favorites);
 
   return (
     <>
@@ -21,7 +22,7 @@ const Movie = ({ movie, favorites, setFavorites }) => {
             name={'➕ Add'}
             movie={movie}
             onClick={addToFavorites}
-            // isDisabled={true}
+            isDisabled={disabled}
           />
           <p>{movie.title}</p>
         </div>

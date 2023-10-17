@@ -4,4 +4,5 @@ export const ROUTES = {
   home: '/',
   movieInfo: '/movie/:id',
   practico4: '/practico4',
+  favorites: '/favorites',
 };

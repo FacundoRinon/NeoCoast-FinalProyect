@@ -31,7 +31,7 @@ const Movies = [
   },
   {
     id: 5,
-    title: 'The Dark Knight',
+    title: 'Batman: The Dark Knight',
     releaseYear: '2008',
     image:
       'https://musicart.xboxlive.com/7/abb02f00-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080',
@@ -45,7 +45,7 @@ const Movies = [
   },
   {
     id: 7,
-    title: 'The dark Knight rises',
+    title: 'Batman: The dark Knight rises',
     releaseYear: '2012',
     image:
       'https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_FMjpg_UX1000_.jpg',
@@ -77,6 +77,13 @@ const Movies = [
     releaseYear: '2023',
     image:
       'https://es.web.img3.acsta.net/pictures/23/05/25/13/41/1835431.jpg',
+  },
+  {
+    id: 12,
+    title: 'Barbie',
+    releaseYear: '2023',
+    image:
+      'https://i.ebayimg.com/images/g/lzMAAOSwDMRkxPxb/s-l1200.webp',
   },
 ];
 
