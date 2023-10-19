@@ -16,8 +16,8 @@ const Movie = ({
 }) => {
   const {
     id,
-    image,
-    releaseYear,
+    poster_path,
+    release_date,
     title,
   } = movie;
 
@@ -26,9 +26,9 @@ const Movie = ({
 
   return (
     <Link className="movie" to={`/movies/${id}`}>
-      <img src={image} alt={title} />
-      <h3 className="movie__title">{title}</h3>
-      <p className="movie__year">{releaseYear}</p>
+      <img src={`https://image.tmdb.org/t/p/original${poster_path}`}  alt={title} />
+      <h3 className="movie__title">{movie.title}</h3>
+      <p className="movie__year">{release_date}</p>
       <CustomButton
         name={`${isFavorite ? '- Remove' : '+ Add'}`}
         type={isFavorite ? 'secondary' : 'primary'}

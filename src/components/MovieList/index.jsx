@@ -10,6 +10,8 @@ import './styles.scss';
 const MovieList = ({
   movies = [],
   isFavoritesPage = false,
+  apiPage,
+  setApiPage,
 }) => {
   const [favorites, setFavorites] = useOutletContext();
 
@@ -27,8 +29,8 @@ const MovieList = ({
 
   return (
     <div className="movie-list">
-      {moviesList.length
-        ? moviesList.map((movie) => (
+      {moviesList.length ? (
+        moviesList.map((movie) => (
           <Movie
             key={movie.id}
             movie={movie}
@@ -36,13 +38,23 @@ const MovieList = ({
             removeFromFavorites={removeFromFavorites}
             addToFavorites={addToFavorites}
           />
-        )) : (
-          <div className="movie-list__empty">
-            {isFavoritesPage
-              ? 'Go to the Home Page to add some movies!'
-              : 'No movies found.'}
-          </div>
-        )}
+        ))
+      ) : (
+        <div className="movie-list__empty">
+          {isFavoritesPage
+            ? 'Go to the Home Page to add some movies!'
+            : 'No movies found.'}
+        </div>
+      )}
+      {!isFavoritesPage && (
+        <div className="movie-list__adderButtonRow">
+          <button
+            onClick={() => setApiPage(apiPage + 1)}
+            className="movie-list__adderButton">
+            More
+          </button>
+        </div>
+      )}
     </div>
   );
 };

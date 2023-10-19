@@ -14,3 +14,18 @@
     color: $white;
   }
 }
+
+.movie-list__adderButtonRow{
+  width: 100%;
+display: flex;
+justify-content: center;
+}
+
+.movie-list__adderButton{
+  background-color: $primary;
+  border: 2px solid white;
+  color: white;
+  border-radius: 10px;
+  width: 20%;
+  padding: 0.5rem;
+}

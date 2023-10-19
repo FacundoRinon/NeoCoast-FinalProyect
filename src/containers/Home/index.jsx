@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import MovieList from 'Components/MovieList';
-import moviesData from 'Data/movies';
+import { getMovies } from '../../api/movies';
 
 import './styles.scss';
 
-const Home = () => (
-  <div className="home">
-    <MovieList movies={moviesData} />
-  </div>
-);
+const Home = () => {
+  const [movies, setMovies] = useState([]);
+  const [apiPage, setApiPage] = useState(1);
 
+  const initHome = async () => {
+    const response = await getMovies(apiPage);
+    setMovies((prevMovies) => [
+      ...prevMovies,
+      ...response.data.results,
+    ]);
+  };
+
+  useEffect(() => {
+    initHome();
+  }, [apiPage]);
+
+  return (
+    <div className="home">
+      <MovieList
+        movies={movies}
+        apiPage={apiPage}
+        setApiPage={setApiPage}
+      />
+    </div>
+  );
+};
 export default Home;

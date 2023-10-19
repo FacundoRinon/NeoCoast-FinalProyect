@@ -2,26 +2,36 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
-import movies from 'Data/movies';
 import noMovie from 'Assets/noMovie.jpg';
+import {getMovieById} from '../../api/movies';
 
 import './styles.scss';
 
 const MovieView = () => {
   const { id } = useParams();
-
+  const [movie, setMovie] = useState([]) 
   const [movieToDisplay, setMovieToDisplay] = useState(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const selectedMovie = movies.find((movie) => movie.id === Number(id));
+    const initHome = async () => {
+      try {
+        const response = await getMovieById(id);
+        setMovie(response.data);
+        setMovieToDisplay(response.data);
+        setError(false);
+      } catch (error) {
+        setError(true);
+      }
+    };
 
-    if (!id || !selectedMovie) {
-      setError(true);
+    if (id) {
+      initHome();
     } else {
-      setMovieToDisplay(selectedMovie);
+      setError(true);
     }
-  }, []);
+  }, [id]);
+
 
   if (error) {
     return (
@@ -35,26 +45,26 @@ const MovieView = () => {
   }
 
   const {
-    description,
-    image,
-    releaseYear,
+    overview,
+    poster_path,
+    release_date,
     title,
   } = movieToDisplay || {};
 
   return (
     <div className="movie-view">
       <div className="movie-view__image">
-        <img src={image} alt={title} />
+        <img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt={title} />
       </div>
       <div className="movie-view__details">
         <h2 className="movie-view__title">
           {title}
         </h2>
         <p className="movie-view__release-year">
-          {`Published in ${releaseYear}`}
+          {`Published in ${release_date}`}
         </p>
         <p className="movie-view__description">
-          {description}
+          {overview}
         </p>
       </div>
     </div>
@@ -63,10 +73,10 @@ const MovieView = () => {
 
 MovieView.propTypes = {
   movie: PropTypes.shape({
-    description: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    releaseYear: PropTypes.number.isRequired,
+    poster_path: PropTypes.string.isRequired,
+    release_date: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired,
 };
