@@ -1,19 +1,31 @@
 import './index.scss';
 import Layout from 'Components/Layout';
-import Movies from 'Data/movies';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getMovieById } from '../../api/movies';
 
 const MovieInfo = () => {
   const topBarLogo = 'NeoMovies';
   const { id } = useParams();
-  const indexInMovies = id - 1;
-  const movie = Movies[indexInMovies];
+  // const indexInMovies = id - 1;
+  // const movie = Movies[indexInMovies];
   const topBarRoutes = [
     { route: '/', label: 'Home' },
     { route: '/all-movies', label: 'All movies' },
     { route: '/favorites', label: 'Favorites' },
   ];
+
+  console.log(id)
+  const [movie, setMovie] = useState(null)
+
+  const getMovie = async () => {
+    const response = await getMovieById(id);
+   console.log(response)
+  };
+
+  useEffect(()=> {
+    getMovie();
+  }, [])
 
   return (
     <>
