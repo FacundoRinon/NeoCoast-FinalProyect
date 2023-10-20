@@ -58,6 +58,11 @@
     font-size: 1rem;
   }
 
+  &__genreList {
+    margin: 0rem;
+    padding-left: 1rem;
+  }
+
   @media (max-width: 800px) {
     flex-direction: column;
     width: 90%;

@@ -12,7 +12,7 @@ const MovieView = () => {
   const [movie, setMovie] = useState([]) 
   const [movieToDisplay, setMovieToDisplay] = useState(null);
   const [error, setError] = useState(false);
-
+  
   useEffect(() => {
     const initHome = async () => {
       try {
@@ -49,7 +49,10 @@ const MovieView = () => {
     poster_path,
     release_date,
     title,
+    genres,
   } = movieToDisplay || {};
+
+  
 
   return (
     <div className="movie-view">
@@ -60,6 +63,18 @@ const MovieView = () => {
         <h2 className="movie-view__title">
           {title}
         </h2>
+        {movieToDisplay ? (
+        <small className='movie-view__genre'>
+          Genres:
+        <ul className='movie-view__genreList'>
+          {genres.map((genre)=>(
+            <li>{genre.name}</li>
+          ))}
+        </ul>
+        </small>
+        ):(
+        <p>Loading</p>
+        )}
         <p className="movie-view__release-year">
           {`Published in ${release_date}`}
         </p>
