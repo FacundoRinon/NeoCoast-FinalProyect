@@ -40,6 +40,8 @@ const Home = () => {
         selectedYear={selectedYear}
         onYearChange={handleYearChange}
         searchValue={searchValue}
+        apiPage={apiPage}
+        setApiPage={setApiPage}
       />
     </div>
   );

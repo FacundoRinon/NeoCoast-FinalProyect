@@ -1,3 +1,5 @@
+@import '../../theme/variables.scss';
+
 .allMoviesRow {
   display: flex;
   flex-wrap: wrap;
@@ -24,4 +26,20 @@
 .h3 {
   display: inline;
   margin: 10px;
+}
+
+.movies__buttonRow{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.movies__button{
+  margin: 2rem;
+  width: 50%;
+  background-color: white;
+  color: $color-primary;
+  border: 3px solid $color-primary;
+  border-radius: 10px;
+  padding: 1rem;
 }

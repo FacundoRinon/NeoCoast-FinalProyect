@@ -15,62 +15,81 @@ const MovieInfo = () => {
     { route: '/favorites', label: 'Favorites' },
   ];
 
-  console.log(id)
+  // console.log(id)
   const [movie, setMovie] = useState(null)
 
   const getMovie = async () => {
     const response = await getMovieById(id);
-   console.log(response)
+    setMovie(response.data)
+    
+   console.log(response.data)
   };
 
   useEffect(()=> {
     getMovie();
   }, [])
 
+  const {
+    title,
+    poster_path,
+    backdrop_path,
+    tagline,
+    vote_average,
+    overview, 
+    genres,
+    release_date
+  } = movie || {}
+
+
   return (
     <>
+        {movie ? (
       <div className="movieInfo">
+          
         <div className="moviePresentation">
           <div className="moviePresentation__title">
-            <h1>{movie.title}</h1>
+            <h1>{title}</h1>
           </div>
           <div className="moviePresentation__picsAndInfo">
             <div className="moviePresentation__pics">
               <img
-                src={movie.image}
+                src={`https://image.tmdb.org/t/p/original${poster_path}`}
                 alt=""
                 className="moviePresentation__centralPic"
-              />
+                />
               <div className="moviePresentation__miniPics">
                 <img
-                  src={movie.image}
+                  src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+                  alt=""
+                  className="moviePresentation__miniPic"
+                  />
+
+                <img
+                  src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
                   alt=""
                   className="moviePresentation__miniPic"
                 />
 
                 <img
-                  src={movie.image}
-                  alt=""
-                  className="moviePresentation__miniPic"
-                />
-
-                <img
-                  src={movie.image}
+                  src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
                   alt=""
                   className="moviePresentation__miniPic"
                 />
               </div>
             </div>
             <div className="moviePresentation__info">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Repellendus at explicabo atque quidem similique.
-                Ratione incidunt, officia modi nulla a nostrum quidem!
-                Esse eaque consequatur ratione laboriosam expedita qui
-                totam voluptas odit! Placeat eaque quaerat amet iure
-                ipsam reprehenderit saepe possimus distinctio. Quas
-                eius illo fugit officiis pariatur molestias sed.
+              <p className='moviePresentation__infoElement'>
+                {tagline}
               </p>
+              <p>Release date: {release_date}</p>
+              <p>Score: {vote_average}</p>
+              {/* <small>
+                <ul>
+                  {genres.map((genre)=>{
+                    <li>{genre.name}</li>
+                  })}
+                </ul>
+              </small> */}
             </div>
           </div>
         </div>
@@ -78,20 +97,7 @@ const MovieInfo = () => {
           <div className="movieDescription">
             <h3>Description</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing
-              elit. Labore odit reprehenderit dicta ratione, iure
-              quasi error quia tenetur fugiat unde, vel perspiciatis
-              velit eaque voluptate omnis numquam praesentium.
-              Exercitationem ea quasi quia alias. Laborum nulla
-              perspiciatis, provident unde esse aliquid quas voluptas
-              eveniet molestias exercitationem aperiam placeat alias
-              similique dolor ex dicta et iusto? Natus illo ducimus in
-              dolores atque facere rerum ratione, sit earum odit.
-              Voluptate in porro qui soluta maxime iure, animi vero,
-              quam aperiam repellendus exercitationem reprehenderit
-              officia perferendis alias dolorum ullam at natus
-              blanditiis illum facere? Excepturi molestias minima
-              laborum fugiat cumque, quo eligendi ab voluptate.
+              {overview}
             </p>
           </div>
           <div className="movieCast">
@@ -126,6 +132,9 @@ const MovieInfo = () => {
           </div>
         </div>
       </div>
+    ):(
+      <h1>Loading...</h1>
+    )}
     </>
   );
 };

@@ -9,6 +9,8 @@ const MovieList = ({
   selectedYear,
   onYearChange,
   searchValue,
+  apiPage,
+  setApiPage,
 }) => {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
@@ -30,7 +32,9 @@ const MovieList = ({
   useEffect(() => {
     const filteredByYear =
       selectedYear !== '0'
-        ? movies.filter((movie) => movie.releaseYear === selectedYear)
+        ? movies.filter((movie) =>
+            movie.release_date.includes(selectedYear),
+          )
         : movies;
 
     const normalizedSearchValue = searchValue.toLowerCase();
@@ -77,6 +81,13 @@ const MovieList = ({
           ) : (
             <p>No movies found</p>
           )}
+          <div className="movies__buttonRow">
+            <button
+              className="movies__button"
+              onClick={() => setApiPage(apiPage + 1)}>
+              Load more
+            </button>
+          </div>
         </div>
       ) : (
         <div className="movies">
