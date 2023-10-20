@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 const Movie = ({ movie, favorites, setFavorites }) => {
   const [disabled, setDisabled] = useState(false);
 
-  console.log(movie)
-
   const addToFavorites = () => {
     setFavorites([...favorites, movie]);
     setDisabled(true);

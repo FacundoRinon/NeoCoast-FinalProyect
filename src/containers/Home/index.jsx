@@ -13,11 +13,15 @@ const Home = () => {
   const [apiPage, setApiPage] = useState(1);
 
   const initHome = async () => {
-    const response = await getMovies(apiPage);
-    setMovies((prevMovies) => [
-      ...prevMovies,
-      ...response.data.results,
-    ]);
+    try {
+      const response = await getMovies(apiPage);
+      setMovies((prevMovies) => [
+        ...prevMovies,
+        ...response.data.results,
+      ]);
+    } catch (error) {
+      console.log('Error in Home/index.jsx - initHome()');
+    }
   };
 
   useEffect(() => {

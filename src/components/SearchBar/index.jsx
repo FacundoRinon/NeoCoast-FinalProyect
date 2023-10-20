@@ -13,9 +13,16 @@ const SearchBar = ({ searchValue, setSearchValue }) => {
     }
   };
 
+  const restartSearch = () => {
+    setSearchValue('');
+  };
+
   return (
     <>
       <div className="searchBar">
+        <button className="searchBar__button" onClick={restartSearch}>
+          ❌
+        </button>
         <input
           className="searchBar__input"
           placeholder="Search your movie"

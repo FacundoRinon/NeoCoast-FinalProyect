@@ -19,15 +19,20 @@ const MovieInfo = () => {
   const [movie, setMovie] = useState(null)
 
   const getMovie = async () => {
-    const response = await getMovieById(id);
-    setMovie(response.data)
-    
-   console.log(response.data)
+    try {
+
+      const response = await getMovieById(id);
+      setMovie(response.data)
+    } catch (error) {
+      console.log("Error in MovieInfo/index.jsx - getMovie()")
+    }
   };
 
   useEffect(()=> {
     getMovie();
   }, [])
+
+  console.log(movie)
 
   const {
     title,
@@ -37,7 +42,8 @@ const MovieInfo = () => {
     vote_average,
     overview, 
     genres,
-    release_date
+    release_date,
+    production_companies,
   } = movie || {}
 
 
@@ -83,13 +89,23 @@ const MovieInfo = () => {
               </p>
               <p>Release date: {release_date}</p>
               <p>Score: {vote_average}</p>
-              {/* <small>
-                <ul>
-                  {genres.map((genre)=>{
-                    <li>{genre.name}</li>
-                  })}
+              <div className="moviePresentation__genresAndProductors">
+
+              <p className='moviePresentation__list'>Genres:
+                <ul >
+                  {movie && genres.map((genre)=> (
+                    <li key={genre.id}>{genre.name}</li>
+                  ))}
                 </ul>
-              </small> */}
+              </p>
+              <p className='moviePresentation__list'>Production Companies:
+                <ul>
+                  {movie && production_companies.map((productor)=> (
+                    <li key={productor.id}>{productor.name}</li>
+                  ))}
+                </ul>
+              </p>
+                </div>
             </div>
           </div>
         </div>

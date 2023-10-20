@@ -69,12 +69,15 @@
     align-items: center;
     background-color: black;
     border-radius: 10px;
+    overflow: scroll;
 
     & p {
       width: 70%;
       color: white;
     }
   }
+
+ 
 }
 
 @media (max-width: 1099px) {
@@ -127,12 +130,15 @@
     border-radius: 10px;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    overflow: scroll;
 
     & p {
       width: 70%;
       color: white;
     }
   }
+
+  
 }
 
 @media (max-width: 672px) {
@@ -174,12 +180,15 @@
     align-items: center;
     background-color: black;
     border-radius: 10px;
+    overflow: scroll;
 
     & p {
       width: 70%;
       color: white;
     }
   }
+
+  
 }
 
 .container {
@@ -191,6 +200,17 @@
 .movieDescription {
   width: 85%;
   margin: 2rem;
+}
+
+.moviePresentation__genresAndProductors{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.moviePresentation__list{
+  width: 40%;
+  padding: 1rem;
 }
 
 .movieCast {
