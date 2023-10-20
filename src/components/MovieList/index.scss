@@ -1,11 +1,23 @@
 @import '../../theme/variables.scss';
 
-.allMoviesRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+@media(max-width:576px){
+  .allMoviesRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+@media(min-width:577px){
+  .allMoviesRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 .allMoviesRow__description {
