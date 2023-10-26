@@ -1,0 +1,60 @@
+@import '../../theme/variables.scss';
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $color-primary;
+}
+
+@media (min-width: 800px) {
+  .login__form {
+    color: $color-primary;
+    width: 40%;
+    height: 60%;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+}
+
+@media (max-width: 801px) {
+  .login__form {
+    color: $color-primary;
+    width: 70%;
+    height: 60%;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+}
+
+.login__header {
+  width: 90%;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.login__input {
+  width: 80%;
+  border: 2px solid $color-primary;
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+.login__button {
+  width: 80%;
+  color: white;
+  background-color: $color-primary;
+  border: 2px solid $color-primary;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
