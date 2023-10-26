@@ -1,0 +1,59 @@
+@import '../../theme/variables.scss';
+
+.fill {
+  height: 4.3rem;
+}
+
+.topbar {
+  height: 4.3rem;
+  color: white;
+  width: 100%;
+  border-bottom: 2px solid $color-primary;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: $color-primary;
+  z-index: 100;
+  position: fixed;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  &__title {
+    margin-left: 0.5rem;
+  }
+
+  &__img {
+    margin-left: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: end;
+    width: 50%;
+  }
+
+  &__cart {
+    margin-right: 0.5rem;
+  }
+
+  &__gift {
+    margin-right: 0.5rem;
+  }
+
+  &__user {
+    width: 25%;
+    background-color: white;
+    color: $color-primary;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
