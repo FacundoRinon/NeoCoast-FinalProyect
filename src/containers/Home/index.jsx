@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { getAllProducts } from '../../api/products';
+import ProductList from 'Components/ProductList';
 
 import './index.scss';
-import { getAllProducts } from '../../api/products';
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+
   const getProducts = async () => {
     try {
       const response = await getAllProducts();
-      console.log(response.data);
+      setProducts(response.data);
     } catch (error) {
       console.log('Error in Home/index.jsx - getProducts');
     }
@@ -17,9 +21,11 @@ const Home = () => {
     getProducts();
   }, []);
 
+  console.log('products', products);
+
   return (
     <div className="home">
-      <h1>Welcome to the Home Page of the React Bootcamp App</h1>
+      <ProductList products={products} />
     </div>
   );
 };
