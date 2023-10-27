@@ -1,10 +1,8 @@
 .home {
-  align-items: center;
   display: flex;
-  flex: 1;
-  flex-direction: column;
   font-family: monospace;
-  justify-content: center;
+  height: calc(100vh - 86px);
+  overflow: none;
 
   & h1 {
     font-size: 30px;
