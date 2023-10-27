@@ -1,2 +1,7 @@
 $base-font: monospace;
 $color-primary: rgb(0, 46, 131);
+
+.link {
+  text-decoration: none;
+  color: $color-primary;
+}
