@@ -1,1 +1,7 @@
 @import '../../theme/variables.scss';
+
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
