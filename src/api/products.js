@@ -4,4 +4,8 @@ const getAllProducts = () => {
   return instance.get('products');
 };
 
-export { getAllProducts };
+const getAllCategories = () => {
+  return instance.get('products/categories');
+};
+
+export { getAllProducts, getAllCategories };
