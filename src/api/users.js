@@ -4,4 +4,8 @@ const getAllUsers = () => {
   return instance.get('users');
 };
 
-export { getAllUsers };
+const getOneUser = (id) => {
+  return instance.get(`users/${id}`);
+};
+
+export { getAllUsers, getOneUser };
