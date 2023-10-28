@@ -8,7 +8,7 @@
   @media (min-width: 577px) {
     &__filter {
       width: 25%;
-      background-color: black;
+      background-color: $color-secondary;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
