@@ -3,4 +3,5 @@
 export const ROUTES = {
   home: '/',
   login: '/login',
+  product: '/product/:id',
 };
