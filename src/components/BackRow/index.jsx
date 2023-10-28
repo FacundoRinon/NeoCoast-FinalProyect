@@ -8,7 +8,7 @@ import './index.scss';
 
 const BackRow = ({ route }) => {
   return (
-    <Link className="backRow link" to={route}>
+    <Link className="backRow link--primary" to={route}>
       <FontAwesomeIcon className="backRow__icon" icon={faArrowLeft} />
     </Link>
   );

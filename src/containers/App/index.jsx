@@ -5,9 +5,10 @@ import { ROUTES } from 'Data/constants';
 
 import Login from 'Containers/Login';
 import Home from 'Containers/Home';
+import Profile from 'Containers/Profile';
+import Product from 'Containers/Product';
 
 import Layout from 'Components/Layout';
-import Product from 'Containers/Product';
 
 import './index.scss';
 
@@ -17,6 +18,7 @@ const App = () => {
       <Route path={ROUTES.login} element={<Login />} />
       <Route path={ROUTES.home} element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path={ROUTES.profile} element={<Profile />} />
         <Route path={ROUTES.product} element={<Product />} />
       </Route>
     </Routes>

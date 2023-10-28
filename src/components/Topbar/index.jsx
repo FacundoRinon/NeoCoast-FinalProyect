@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -45,7 +46,9 @@ const Topbar = () => {
             src="https://media.licdn.com/dms/image/D4D0BAQG8fQlyC7YOxA/company-logo_200_200/0/1688400672391/neocoast_logo?e=2147483647&v=beta&t=4I_aV2DApODpx1mHAWrbgpeD81eW799vkCfy9UTtWDM"
             alt=""
           />
-          <h1 className="topbar__title">NeoStore</h1>
+          <Link className="link--white" to="/">
+            <h1 className="topbar__title">NeoStore</h1>
+          </Link>
         </div>
         <div className="topbar__actions">
           <FontAwesomeIcon
@@ -69,8 +72,16 @@ const Topbar = () => {
               <FontAwesomeIcon className="drop__icon" icon={faGift} />
             </p>
             <p className="drop__action">
-              Profile
-              <FontAwesomeIcon className="drop__icon" icon={faUser} />
+              <Link
+                className="link--primary"
+                onClick={() => toggleDrop()}
+                to={`profile/${user.id}`}>
+                Profile
+                <FontAwesomeIcon
+                  className="drop__icon"
+                  icon={faUser}
+                />
+              </Link>
             </p>
             <p
               className="drop__action"

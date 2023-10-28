@@ -1,7 +1,16 @@
 .backRow {
   width: 100%;
-  &__icon {
-    padding: 2rem;
-    font-size: 2rem;
+  @media (min-width: 576px) {
+    &__icon {
+      padding: 2rem;
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 575px) {
+    &__icon {
+      padding: 1rem;
+      font-size: 1.5rem;
+    }
   }
 }

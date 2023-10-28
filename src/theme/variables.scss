@@ -3,6 +3,12 @@ $color-primary: rgb(0, 46, 131);
 $color-secondary: rgb(2, 2, 22);
 
 .link {
-  text-decoration: none;
-  color: $color-primary;
+  &--white {
+    text-decoration: none;
+    color: white;
+  }
+  &--primary {
+    text-decoration: none;
+    color: $color-primary;
+  }
 }
