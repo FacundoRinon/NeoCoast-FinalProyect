@@ -8,4 +8,12 @@ const getOneUser = (id) => {
   return instance.get(`users/${id}`);
 };
 
-export { getAllUsers, getOneUser };
+const getUsersCarts = () => {
+  return instance.get(`carts`);
+};
+
+const getUserCart = (id) => {
+  return instance.get(`carts/${id}`);
+};
+
+export { getAllUsers, getOneUser, getUsersCarts, getUserCart };

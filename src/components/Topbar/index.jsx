@@ -51,10 +51,12 @@ const Topbar = () => {
           </Link>
         </div>
         <div className="topbar__actions">
-          <FontAwesomeIcon
-            className="topbar__cart"
-            icon={faCartPlus}
-          />
+          <Link className="link--white" to={`cart/${user.id}`}>
+            <FontAwesomeIcon
+              className="topbar__cart"
+              icon={faCartPlus}
+            />
+          </Link>
           <p onClick={() => toggleDrop()} className="topbar__user">
             {user.username}
             <FontAwesomeIcon

@@ -1,0 +1,73 @@
+@import '../../theme/variables.scss';
+
+.cart {
+  margin-bottom: 5rem;
+  &__header {
+    color: $color-primary;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 4px solid $color-primary;
+  }
+
+  @media (min-width: 576px) {
+    &__img {
+      width: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+      img {
+        width: 70%;
+        border: 3px solid $color-primary;
+        border-radius: 50%;
+      }
+    }
+
+    &__user {
+      padding-left: 1rem;
+      & h2 {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    &__img {
+      width: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      img {
+        width: 70%;
+        border: 3px solid $color-primary;
+        border-radius: 50%;
+      }
+    }
+
+    &__user {
+      padding-left: 1rem;
+    }
+  }
+
+  &__buy {
+    color: $color-primary;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    & b {
+      margin: 2rem;
+    }
+    & button {
+      margin: 2rem;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 10rem;
+      color: white;
+      background-color: $color-primary;
+    }
+  }
+}

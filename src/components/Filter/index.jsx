@@ -62,7 +62,7 @@ const Filter = () => {
           })}
       </div>
       <div className="filter__list">
-        <ProductList products={filteredProducts} />
+        <ProductList products={filteredProducts} page={'home'} />
       </div>
     </div>
   );

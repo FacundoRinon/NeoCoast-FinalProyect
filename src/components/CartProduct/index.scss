@@ -1,0 +1,65 @@
+@import '../../theme/variables.scss';
+
+.cartProduct {
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 475px) {
+    color: $color-primary;
+    width: 80%;
+    display: flex;
+    margin-top: 2rem;
+    border: 3px solid $color-primary;
+    border-radius: 10px;
+    &__img {
+      width: 20%;
+      min-width: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & img {
+        width: 90%;
+        padding: 1rem;
+        max-width: 8rem;
+      }
+    }
+  }
+
+  @media (max-width: 474px) {
+    color: $color-primary;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    border: 3px solid $color-primary;
+    border-radius: 10px;
+    &__img {
+      width: 100%;
+      min-width: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & img {
+        width: 90%;
+        padding: 1rem;
+        max-width: 8rem;
+      }
+    }
+  }
+
+  &__info {
+    padding: 1rem;
+  }
+
+  &__cost {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    & p {
+      margin-right: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
