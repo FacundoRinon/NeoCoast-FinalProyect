@@ -7,6 +7,7 @@ import Login from 'Containers/Login';
 import Home from 'Containers/Home';
 import Profile from 'Containers/Profile';
 import Product from 'Containers/Product';
+import Cart from 'Containers/Cart';
 
 import Layout from 'Components/Layout';
 
@@ -20,6 +21,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path={ROUTES.profile} element={<Profile />} />
         <Route path={ROUTES.product} element={<Product />} />
+        <Route path={ROUTES.cart} element={<Cart />} />
       </Route>
     </Routes>
   );

@@ -5,4 +5,5 @@ export const ROUTES = {
   login: '/login',
   profile: '/profile/:id',
   product: '/product/:id',
+  cart: '/cart/:id',
 };

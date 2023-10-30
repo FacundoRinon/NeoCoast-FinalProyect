@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { getAllUsers } from '../../api/users';
+import { getAllUsers, getUsersCarts } from '../../api/users';
 import { setUser } from '../../redux/userSlice';
 
 import './index.scss';
@@ -11,6 +11,7 @@ const Login = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [users, setUsers] = useState([]);
+  const [carts, setCarts] = useState([]);
   const [credentials, setCredentials] = useState(false);
 
   const dispatch = useDispatch();
@@ -26,24 +27,41 @@ const Login = () => {
     }
   }
 
+  async function getCarts() {
+    try {
+      const response = await getUsersCarts();
+      console.log(response.data);
+      setCarts(response.data);
+    } catch (error) {
+      console.log('Error in Login/index.jsx - getCarts', error);
+    }
+  }
+
   async function handleSubmit(event) {
     try {
       event.preventDefault();
       const filteredUsers = users.filter(
-        (person) => person.email === emailValue,
+        (person) =>
+          person.email === emailValue ||
+          person.username === emailValue,
       );
+      let cart = [];
       if (filteredUsers.length === 0) {
         setCredentials('No user');
         setEmailValue('');
         setPasswordValue('');
       } else {
         const user = filteredUsers[0];
+        const filteredCart = carts.filter((c) => c.id === user.id);
+
+        if (filteredCart.length !== 0) {
+          cart = filteredCart[0];
+        }
         if (user.password !== passwordValue) {
           setCredentials('Wrong password');
           setPasswordValue('');
         } else {
-          console.log('¡LLegaste brodi loviiiiiiiii!');
-          dispatch(setUser(user));
+          dispatch(setUser({ user: user, cart: cart }));
           navigate('/');
         }
       }
@@ -54,9 +72,8 @@ const Login = () => {
 
   useEffect(() => {
     getUsers();
+    getCarts();
   }, []);
-
-  console.log(credentials);
 
   return (
     <>
@@ -68,7 +85,7 @@ const Login = () => {
           <h1 className="login__header">Login</h1>
           <input
             className="login__input"
-            type="email"
+            type="text"
             placeholder={
               credentials === 'No user'
                 ? 'Wrong user'
