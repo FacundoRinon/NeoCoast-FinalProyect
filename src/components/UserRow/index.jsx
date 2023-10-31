@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import './index.scss';
@@ -25,6 +26,10 @@ const UserRow = ({ user }) => {
       </Link>
     </div>
   );
+};
+
+UserRow.propTypes = {
+  user: PropTypes.object,
 };
 
 export default UserRow;

@@ -1,22 +1,19 @@
 import React from 'react';
-import ProductCard from 'Components/ProductCard';
+import PropTypes, { object } from 'prop-types';
+
 import CartProduct from 'Components/CartProduct';
+import ProductCard from 'Components/ProductCard';
 import Spinner from 'Components/Spinner';
+
 import './index.scss';
 
 const ProductList = ({ products, page }) => {
   return (
     <div className="productList">
       {page === 'home' ? (
-        products.length > 0 ? (
-          products.map((product) => {
-            return <ProductCard key={product.id} product={product} />;
-          })
-        ) : (
-          <div className="productList__spinner">
-            <Spinner />
-          </div>
-        )
+        products.map((product) => {
+          return <ProductCard key={product.id} product={product} />;
+        })
       ) : page === 'cart' ? (
         products.length > 0 ? (
           products.map((product) => {
@@ -32,6 +29,11 @@ const ProductList = ({ products, page }) => {
       )}
     </div>
   );
+};
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(object),
+  page: PropTypes.string.isRequired,
 };
 
 export default ProductList;

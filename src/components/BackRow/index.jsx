@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,6 +12,10 @@ const BackRow = ({ route }) => {
       <FontAwesomeIcon className="backRow__icon" icon={faArrowLeft} />
     </Link>
   );
+};
+
+BackRow.propTypes = {
+  route: PropTypes.string,
 };
 
 export default BackRow;

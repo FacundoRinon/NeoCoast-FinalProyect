@@ -5,6 +5,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+  top: 85px;
 
   &__container {
     border: 5px solid $color-primary;

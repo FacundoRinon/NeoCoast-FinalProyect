@@ -10,7 +10,6 @@ const userSlice = createSlice({
         ...user,
         cart: cart.products,
       };
-      console.log(updatedUser);
       return updatedUser;
     },
     removeUser(state, action) {

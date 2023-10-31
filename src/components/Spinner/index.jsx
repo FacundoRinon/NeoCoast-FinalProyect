@@ -1,19 +1,19 @@
-import React, { useState, CSSProperties } from 'react';
-import ClipLoader from 'react-spinners/ClipLoader';
+import React from 'react';
+import ClipLoader from 'react-spinners/CircleLoader';
 
 const override = {
   display: 'block',
   margin: '0 auto',
-  borderColor: 'blue',
 };
 
 const Spinner = () => {
   return (
     <div className="sweet-loading">
       <ClipLoader
+        color="rgb(17, 46, 134)"
         loading={true}
         cssOverride={override}
-        size={150}
+        size={200}
         aria-label="Loading Spinner"
         data-testid="loader"
       />

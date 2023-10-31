@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -36,6 +37,10 @@ const CartProduct = ({ product }) => {
       </div>
     </Link>
   );
+};
+
+CartProduct.propTypes = {
+  product: PropTypes.object.isRequired,
 };
 
 export default CartProduct;
