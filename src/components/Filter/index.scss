@@ -44,6 +44,10 @@
   &__category {
     color: $color-primary;
     cursor: pointer;
+
+    &--active {
+      color: white;
+    }
   }
 
   &__category:hover {

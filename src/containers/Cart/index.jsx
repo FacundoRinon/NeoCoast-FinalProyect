@@ -58,7 +58,7 @@ const Cart = () => {
 
   return (
     <>
-      <BackRow route={'/'} />
+      <BackRow page={'Cart'} />
       <div className="cart">
         {cartUser && (
           <div className="cart__header">
@@ -73,8 +73,7 @@ const Cart = () => {
                 <Link
                   className="link--primary"
                   to={`/profile/${cartUser.id}`}>
-                  {cartUser.name.firstname} {cartUser.name.lastname}{' '}
-                  (cart)
+                  {cartUser.name.firstname} {cartUser.name.lastname}
                 </Link>
               </h2>
               <p>{cartUser.username}</p>
@@ -88,7 +87,7 @@ const Cart = () => {
             {cartUser.cart.length > 0 && (
               <div className="cart__buy">
                 <b>
-                  Cart Total:{' '}
+                  Cart Total: $
                   {cartUser.cart.reduce((total, item) => {
                     return total + item.price * item.quantity;
                   }, 0)}

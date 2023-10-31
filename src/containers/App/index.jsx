@@ -8,6 +8,8 @@ import Layout from 'Components/Layout';
 import Login from 'Containers/Login';
 import Product from 'Containers/Product';
 import Profile from 'Containers/Profile';
+import ProtectedRoute from 'Components/ProtectedRoute';
+import ErrorPage from 'Containers/ErrorPage';
 import { ROUTES } from 'Data/constants';
 
 import './index.scss';
@@ -18,10 +20,13 @@ const App = () => {
       <Route path={ROUTES.login} element={<Login />} />
       <Route path={ROUTES.home} element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path={ROUTES.profile} element={<Profile />} />
         <Route path={ROUTES.product} element={<Product />} />
-        <Route path={ROUTES.cart} element={<Cart />} />
-        <Route path={ROUTES.gift} element={<Gift />} />
+        <Route path="*" element={<ErrorPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path={ROUTES.profile} element={<Profile />} />
+          <Route path={ROUTES.cart} element={<Cart />} />
+          <Route path={ROUTES.gift} element={<Gift />} />
+        </Route>
       </Route>
     </Routes>
   );

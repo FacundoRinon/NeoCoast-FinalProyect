@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
 
 import { getAllProducts, getAllCategories } from '../../api/products';
 import ProductList from 'Components/ProductList';
@@ -40,6 +41,9 @@ const Filter = () => {
         (product) => product.category === selectedCategory.category,
       );
 
+  // console.log(categories);
+  console.log(selectedCategory.category);
+
   return (
     <div className="filter">
       {products.length > 0 ? (
@@ -47,7 +51,9 @@ const Filter = () => {
           <div className="filter__filter">
             {categories.length > 0 && (
               <p
-                className="filter__category"
+                className={cn('filter__category', {
+                  'filter__category--active': selectedCategory === '',
+                })}
                 onClick={() => setSelectedCategory('')}>
                 all
               </p>
@@ -57,7 +63,10 @@ const Filter = () => {
                 return (
                   <p
                     key={category}
-                    className="filter__category"
+                    className={cn('filter__category', {
+                      'filter__category--active':
+                        selectedCategory.category === category,
+                    })}
                     onClick={() => setSelectedCategory({ category })}>
                     {category}
                   </p>

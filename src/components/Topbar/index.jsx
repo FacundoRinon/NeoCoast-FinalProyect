@@ -45,7 +45,10 @@ const Topbar = () => {
             src="https://media.licdn.com/dms/image/D4D0BAQG8fQlyC7YOxA/company-logo_200_200/0/1688400672391/neocoast_logo?e=2147483647&v=beta&t=4I_aV2DApODpx1mHAWrbgpeD81eW799vkCfy9UTtWDM"
             alt=""
           />
-          <Link className="link--white" to="/">
+          <Link
+            className="link--white"
+            onClick={() => setDrop(false)}
+            to="/">
             <h1 className="topbar__title">NeoStore</h1>
           </Link>
         </div>

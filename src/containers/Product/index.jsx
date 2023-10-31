@@ -28,7 +28,7 @@ const Product = () => {
 
   return (
     <>
-      <BackRow route={'/'} />
+      <BackRow page={'Product'} />
       <div className="product">
         {product !== null ? (
           <div className="product__container">
