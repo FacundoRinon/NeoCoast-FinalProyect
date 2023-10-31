@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
+import cn from 'classnames';
 
 import { getAllUsers, getUsersCarts } from '../../api/users';
+import { ROUTES } from '../../data/constants';
 import { setUser } from '../../redux/userSlice';
 
 import './index.scss';
 
 const Login = () => {
+  const user = useSelector((state) => state.user);
+
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [users, setUsers] = useState([]);
@@ -75,41 +79,57 @@ const Login = () => {
     getCarts();
   }, []);
 
-  return (
-    <>
-      <div className="login">
-        <form
-          className="login__form"
-          action=""
-          onSubmit={handleSubmit}>
-          <h1 className="login__header">Login</h1>
-          <input
-            className="login__input"
-            type="text"
-            placeholder={
-              credentials === 'No user'
-                ? 'Wrong user'
-                : 'example@mail.com'
-            }
-            value={emailValue}
-            onChange={(event) => setEmailValue(event.target.value)}
-          />
-          <input
-            className="login__input"
-            type="password"
-            placeholder={
-              credentials === 'Wrong password'
-                ? 'Wrong password'
-                : 'password'
-            }
-            value={passwordValue}
-            onChange={(event) => setPasswordValue(event.target.value)}
-          />
-          <button className="login__button">Login</button>
-        </form>
-      </div>
-    </>
-  );
+  if (user) {
+    return <Navigate to={ROUTES.home} replace />;
+  } else {
+    return (
+      <>
+        <div className="login">
+          <form
+            className="login__form"
+            action=""
+            onSubmit={handleSubmit}>
+            <h1 className="login__header">Login</h1>
+            <input
+              className={cn('login__input', {
+                'login__input--error': credentials === 'No user',
+              })}
+              type="text"
+              placeholder={
+                credentials === 'No user'
+                  ? 'Wrong user'
+                  : 'example@mail.com'
+              }
+              value={emailValue}
+              onChange={(event) => setEmailValue(event.target.value)}
+            />
+            <input
+              className={cn('login__input', {
+                'login__input--error':
+                  credentials === 'Wrong password',
+              })}
+              type="password"
+              placeholder={
+                credentials === 'Wrong password'
+                  ? 'Wrong password'
+                  : 'password'
+              }
+              value={passwordValue}
+              onChange={(event) =>
+                setPasswordValue(event.target.value)
+              }
+            />
+            <button className="login__button">Login</button>
+          </form>
+          <button
+            onClick={() => navigate('/')}
+            className="login__invitedButton">
+            Enter without user
+          </button>
+        </div>
+      </>
+    );
+  }
 };
 
 export default Login;

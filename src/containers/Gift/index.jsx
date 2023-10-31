@@ -30,7 +30,7 @@ const Gift = () => {
 
   return (
     <>
-      <BackRow route={'/'} />
+      <BackRow page={'Gift'} />
       <div className="gift">
         {users ? (
           <div className="gift__container">

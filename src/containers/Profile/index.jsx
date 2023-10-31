@@ -29,7 +29,7 @@ const Profile = () => {
 
   return (
     <>
-      <BackRow route="/" />
+      <BackRow page={'Profile'} />
       <div className="profile">
         {profile ? (
           <div className="profile__container">
