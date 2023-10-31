@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCartPlus,
@@ -51,36 +50,30 @@ const Topbar = () => {
           </Link>
         </div>
         <div className="topbar__actions">
-          <Link className="link--white" to={`cart/${user.id}`}>
-            <FontAwesomeIcon
-              className="topbar__cart"
-              icon={faCartPlus}
-            />
-          </Link>
-          <p onClick={() => toggleDrop()} className="topbar__user">
-            {user.username}
-            <FontAwesomeIcon
-              className="drop__icon"
-              icon={faChevronDown}
-            />
-          </p>
-        </div>
-      </div>
-      {drop && (
-        <div className="drop">
-          <div className="drop__actions">
-            <p className="drop__action">
-              <Link
-                className="link--primary"
-                onClick={() => toggleDrop()}
-                to={`gift`}>
-                Gifts
+          {user ? (
+            <p onClick={() => toggleDrop()} className="topbar__user">
+              {user.username}
+              <FontAwesomeIcon
+                className="drop__icon"
+                icon={faChevronDown}
+              />
+            </p>
+          ) : (
+            <p className="topbar__login">
+              <Link className="link--primary" to={'/login'}>
+                Log In
                 <FontAwesomeIcon
                   className="drop__icon"
-                  icon={faGift}
+                  // icon={faChevronDown}
                 />
               </Link>
             </p>
+          )}
+        </div>
+      </div>
+      {user && drop && (
+        <div className="drop">
+          <div className="drop__actions">
             <p className="drop__action">
               <Link
                 className="link--primary"
@@ -90,6 +83,30 @@ const Topbar = () => {
                 <FontAwesomeIcon
                   className="drop__icon"
                   icon={faUser}
+                />
+              </Link>
+            </p>
+            <p className="drop__action">
+              <Link
+                className="link--primary"
+                onClick={() => toggleDrop()}
+                to={`cart/${user.id}`}>
+                Cart
+                <FontAwesomeIcon
+                  className="drop__icon"
+                  icon={faCartPlus}
+                />
+              </Link>
+            </p>
+            <p className="drop__action">
+              <Link
+                className="link--primary"
+                onClick={() => toggleDrop()}
+                to={`gift`}>
+                Gifts
+                <FontAwesomeIcon
+                  className="drop__icon"
+                  icon={faGift}
                 />
               </Link>
             </p>

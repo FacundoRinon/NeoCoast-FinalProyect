@@ -6,11 +6,14 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 3rem;
+  position: relative;
+  top: 85px;
 
   &__container {
     width: 80%;
     border: 3px solid $color-primary;
     border-radius: 10px;
+    margin-bottom: 3rem;
   }
 
   &__header {

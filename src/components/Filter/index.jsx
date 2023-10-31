@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import ProductList from 'Components/ProductList';
 import { getAllProducts, getAllCategories } from '../../api/products';
+import ProductList from 'Components/ProductList';
+import Spinner from 'Components/Spinner';
 
 import './index.scss';
 
@@ -41,29 +42,37 @@ const Filter = () => {
 
   return (
     <div className="filter">
-      <div className="filter__filter">
-        {categories.length > 0 && (
-          <p
-            className="filter__category"
-            onClick={() => setSelectedCategory('')}>
-            all
-          </p>
-        )}
-        {categories &&
-          categories.map((category) => {
-            return (
+      {products.length > 0 ? (
+        <>
+          <div className="filter__filter">
+            {categories.length > 0 && (
               <p
-                key={category}
                 className="filter__category"
-                onClick={() => setSelectedCategory({ category })}>
-                {category}
+                onClick={() => setSelectedCategory('')}>
+                all
               </p>
-            );
-          })}
-      </div>
-      <div className="filter__list">
-        <ProductList products={filteredProducts} page={'home'} />
-      </div>
+            )}
+            {categories &&
+              categories.map((category) => {
+                return (
+                  <p
+                    key={category}
+                    className="filter__category"
+                    onClick={() => setSelectedCategory({ category })}>
+                    {category}
+                  </p>
+                );
+              })}
+          </div>
+          <div className="filter__list">
+            <ProductList products={filteredProducts} page={'home'} />
+          </div>
+        </>
+      ) : (
+        <div className="filter__spinner">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };

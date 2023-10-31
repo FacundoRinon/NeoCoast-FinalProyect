@@ -1,16 +1,14 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { ROUTES } from 'Data/constants';
-
-import Login from 'Containers/Login';
-import Home from 'Containers/Home';
-import Profile from 'Containers/Profile';
-import Product from 'Containers/Product';
 import Cart from 'Containers/Cart';
 import Gift from 'Containers/Gift';
-
+import Home from 'Containers/Home';
 import Layout from 'Components/Layout';
+import Login from 'Containers/Login';
+import Product from 'Containers/Product';
+import Profile from 'Containers/Profile';
+import { ROUTES } from 'Data/constants';
 
 import './index.scss';
 

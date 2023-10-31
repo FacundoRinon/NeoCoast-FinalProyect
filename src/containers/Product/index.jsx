@@ -22,15 +22,14 @@ const Product = () => {
     }
   };
 
-  console.log(product);
   useEffect(() => {
     getProduct();
   }, []);
 
   return (
     <>
+      <BackRow route={'/'} />
       <div className="product">
-        <BackRow route={'/'} />
         {product !== null ? (
           <div className="product__container">
             <div className="product__img">

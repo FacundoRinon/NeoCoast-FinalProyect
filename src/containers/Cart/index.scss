@@ -2,6 +2,8 @@
 
 .cart {
   margin-bottom: 5rem;
+  position: relative;
+  top: 85px;
   &__header {
     color: $color-primary;
     width: 100%;

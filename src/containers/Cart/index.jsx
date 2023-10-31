@@ -56,53 +56,54 @@ const Cart = () => {
     getCartData();
   }, []);
 
-  console.log(cartUser);
   return (
-    <div className="cart">
+    <>
       <BackRow route={'/'} />
-      {cartUser && (
-        <div className="cart__header">
-          <div className="cart__img">
-            <img
-              src={`https://robohash.org/${cartUser.username}`}
-              alt=""
-            />
-          </div>
-          <div className="cart__user">
-            <h2>
-              <Link
-                className="link--primary"
-                to={`/profile/${cartUser.id}`}>
-                {cartUser.name.firstname} {cartUser.name.lastname}{' '}
-                (cart)
-              </Link>
-            </h2>
-            <p>{cartUser.username}</p>
-            <p>{cartUser.email}</p>
-          </div>
-        </div>
-      )}
-      {cartUser ? (
-        <>
-          <ProductList products={cartUser.cart} page={'cart'} />
-          {cartUser.cart.length > 0 && (
-            <div className="cart__buy">
-              <b>
-                Cart Total:{' '}
-                {cartUser.cart.reduce((total, item) => {
-                  return total + item.price * item.quantity;
-                }, 0)}
-              </b>
-              <button>Buy Cart</button>
+      <div className="cart">
+        {cartUser && (
+          <div className="cart__header">
+            <div className="cart__img">
+              <img
+                src={`https://robohash.org/${cartUser.username}`}
+                alt=""
+              />
             </div>
-          )}
-        </>
-      ) : (
-        <div className="cart__spinner">
-          <Spinner />
-        </div>
-      )}
-    </div>
+            <div className="cart__user">
+              <h2>
+                <Link
+                  className="link--primary"
+                  to={`/profile/${cartUser.id}`}>
+                  {cartUser.name.firstname} {cartUser.name.lastname}{' '}
+                  (cart)
+                </Link>
+              </h2>
+              <p>{cartUser.username}</p>
+              <p>{cartUser.email}</p>
+            </div>
+          </div>
+        )}
+        {cartUser ? (
+          <>
+            <ProductList products={cartUser.cart} page={'cart'} />
+            {cartUser.cart.length > 0 && (
+              <div className="cart__buy">
+                <b>
+                  Cart Total:{' '}
+                  {cartUser.cart.reduce((total, item) => {
+                    return total + item.price * item.quantity;
+                  }, 0)}
+                </b>
+                <button>Buy Cart</button>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="cart__spinner">
+            <Spinner />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

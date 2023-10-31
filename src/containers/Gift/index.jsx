@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { getAllUsers } from '../../api/users';
 import BackRow from 'Components/BackRow';
-import UserRow from 'Components/UserRow';
 import Spinner from 'Components/Spinner';
+import UserRow from 'Components/UserRow';
 
 import './index.scss';
-import { useSelector } from 'react-redux';
 
 const Gift = () => {
   const user = useSelector((state) => state.user);
@@ -27,8 +27,6 @@ const Gift = () => {
   useEffect(() => {
     getUsers();
   }, []);
-
-  console.log('users: ', users);
 
   return (
     <>

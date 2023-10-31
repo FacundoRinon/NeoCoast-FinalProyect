@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +8,6 @@ import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
 
 import './index.scss';
-import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -26,8 +26,6 @@ const Profile = () => {
   useEffect(() => {
     getProfile();
   }, []);
-
-  console.log('profile: ', profile);
 
   return (
     <>
