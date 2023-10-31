@@ -6,4 +6,5 @@ export const ROUTES = {
   profile: '/profile/:id',
   product: '/product/:id',
   cart: '/cart/:id',
+  gift: '/gift',
 };

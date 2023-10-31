@@ -70,8 +70,16 @@ const Topbar = () => {
         <div className="drop">
           <div className="drop__actions">
             <p className="drop__action">
-              Gifts
-              <FontAwesomeIcon className="drop__icon" icon={faGift} />
+              <Link
+                className="link--primary"
+                onClick={() => toggleDrop()}
+                to={`gift`}>
+                Gifts
+                <FontAwesomeIcon
+                  className="drop__icon"
+                  icon={faGift}
+                />
+              </Link>
             </p>
             <p className="drop__action">
               <Link

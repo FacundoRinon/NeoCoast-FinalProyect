@@ -8,6 +8,7 @@ import Home from 'Containers/Home';
 import Profile from 'Containers/Profile';
 import Product from 'Containers/Product';
 import Cart from 'Containers/Cart';
+import Gift from 'Containers/Gift';
 
 import Layout from 'Components/Layout';
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route path={ROUTES.profile} element={<Profile />} />
         <Route path={ROUTES.product} element={<Product />} />
         <Route path={ROUTES.cart} element={<Cart />} />
+        <Route path={ROUTES.gift} element={<Gift />} />
       </Route>
     </Routes>
   );

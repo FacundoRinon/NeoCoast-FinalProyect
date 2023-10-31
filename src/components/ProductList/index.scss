@@ -4,4 +4,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+
+  & h2 {
+    color: $color-primary;
+    border-bottom: 3px solid $color-primary;
+  }
+
+  &__spinner {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

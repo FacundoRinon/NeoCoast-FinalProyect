@@ -1,27 +1,34 @@
 import React from 'react';
-
 import ProductCard from 'Components/ProductCard';
 import CartProduct from 'Components/CartProduct';
-
+import Spinner from 'Components/Spinner';
 import './index.scss';
 
 const ProductList = ({ products, page }) => {
   return (
     <div className="productList">
-      {products ? (
-        page === 'home' ? (
+      {page === 'home' ? (
+        products.length > 0 ? (
           products.map((product) => {
             return <ProductCard key={product.id} product={product} />;
           })
-        ) : page === 'cart' ? (
+        ) : (
+          <div className="productList__spinner">
+            <Spinner />
+          </div>
+        )
+      ) : page === 'cart' ? (
+        products.length > 0 ? (
           products.map((product) => {
             return <CartProduct key={product.id} product={product} />;
           })
         ) : (
-          <p>invalid page</p>
+          <h2>This user's cart is empty.</h2>
         )
       ) : (
-        <p>Loading...</p>
+        <div className="productList__spinner">
+          <Spinner />
+        </div>
       )}
     </div>
   );
