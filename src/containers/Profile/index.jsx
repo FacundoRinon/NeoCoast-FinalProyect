@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import BackRow from 'Components/BackRow';
 import { getOneUser } from '../../api/users';
+import BackRow from 'Components/BackRow';
+import Spinner from 'Components/Spinner';
 
 import './index.scss';
 import { useSelector } from 'react-redux';
@@ -36,7 +38,7 @@ const Profile = () => {
             <div className="profile__header">
               <div className="profile__img">
                 <img
-                  src="https://media.licdn.com/dms/image/D4D03AQHRpriPsqXNyw/profile-displayphoto-shrink_800_800/0/1674105280991?e=2147483647&v=beta&t=1HHq56exp6ajnbwS8rIVQBcxz-kie53VfW5WpfZcOW0"
+                  src={`https://robohash.org/${profile.username}`}
                   alt=""
                 />
               </div>
@@ -59,9 +61,18 @@ const Profile = () => {
                 </>
               )}
             </div>
+            <div className="profile__cart">
+              <Link
+                className="link--primary"
+                to={`/cart/${profile.id}`}>
+                <p>View Cart</p>
+              </Link>
+            </div>
           </div>
         ) : (
-          <h3>Loading...</h3>
+          <div className="profile__spinner">
+            <Spinner />
+          </div>
         )}
       </div>
     </>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { getAllProducts } from '../../api/products';
 import { getOneUser, getUserCart } from '../../api/users';
 import ProductList from 'Components/ProductList';
 import BackRow from 'Components/BackRow';
+import Spinner from 'Components/Spinner';
 
 import './index.scss';
 
@@ -62,14 +64,18 @@ const Cart = () => {
         <div className="cart__header">
           <div className="cart__img">
             <img
-              src="https://media.licdn.com/dms/image/D4D03AQHRpriPsqXNyw/profile-displayphoto-shrink_800_800/0/1674105280991?e=2147483647&v=beta&t=1HHq56exp6ajnbwS8rIVQBcxz-kie53VfW5WpfZcOW0"
+              src={`https://robohash.org/${cartUser.username}`}
               alt=""
             />
           </div>
           <div className="cart__user">
             <h2>
-              {cartUser.name.firstname} {cartUser.name.lastname}{' '}
-              (cart)
+              <Link
+                className="link--primary"
+                to={`/profile/${cartUser.id}`}>
+                {cartUser.name.firstname} {cartUser.name.lastname}{' '}
+                (cart)
+              </Link>
             </h2>
             <p>{cartUser.username}</p>
             <p>{cartUser.email}</p>
@@ -79,18 +85,22 @@ const Cart = () => {
       {cartUser ? (
         <>
           <ProductList products={cartUser.cart} page={'cart'} />
-          <div className="cart__buy">
-            <b>
-              Cart Total:{' '}
-              {cartUser.cart.reduce((total, item) => {
-                return total + item.price * item.quantity;
-              }, 0)}
-            </b>
-            <button>Buy Cart</button>
-          </div>
+          {cartUser.cart.length > 0 && (
+            <div className="cart__buy">
+              <b>
+                Cart Total:{' '}
+                {cartUser.cart.reduce((total, item) => {
+                  return total + item.price * item.quantity;
+                }, 0)}
+              </b>
+              <button>Buy Cart</button>
+            </div>
+          )}
         </>
       ) : (
-        <h2>Loading...</h2>
+        <div className="cart__spinner">
+          <Spinner />
+        </div>
       )}
     </div>
   );

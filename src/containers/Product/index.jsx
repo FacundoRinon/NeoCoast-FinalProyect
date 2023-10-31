@@ -5,6 +5,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 import { getSingleProduct } from '../../api/products';
 import BackRow from 'Components/BackRow';
+import Spinner from 'Components/Spinner';
 
 import './index.scss';
 
@@ -58,7 +59,7 @@ const Product = () => {
           </div>
         ) : (
           <div className="product__loader">
-            <p>Loading...</p>
+            <Spinner />
           </div>
         )}
       </div>
