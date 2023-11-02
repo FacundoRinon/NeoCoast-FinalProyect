@@ -6,16 +6,17 @@ import cn from 'classnames';
 import { getAllUsers, getUsersCarts } from '../../api/users';
 import { ROUTES } from '../../data/constants';
 import { setUser } from '../../redux/userSlice';
+import { setCarts } from '../../redux/cartsSlice';
 
 import './index.scss';
 
 const Login = () => {
   const user = useSelector((state) => state.user);
+  const carts = useSelector((state) => state.carts);
 
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [users, setUsers] = useState([]);
-  const [carts, setCarts] = useState([]);
   const [credentials, setCredentials] = useState(false);
 
   const dispatch = useDispatch();
@@ -35,7 +36,8 @@ const Login = () => {
     try {
       const response = await getUsersCarts();
       console.log(response.data);
-      setCarts(response.data);
+      // setCarts(response.data);
+      dispatch(setCarts(response.data));
     } catch (error) {
       console.log('Error in Login/index.jsx - getCarts', error);
     }

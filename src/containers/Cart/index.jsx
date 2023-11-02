@@ -1,60 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getAllProducts } from '../../api/products';
-import { getOneUser, getUserCart } from '../../api/users';
+import { getOneUser } from '../../api/users';
+import { buyCart } from '../../redux/cartsSlice';
 import ProductList from 'Components/ProductList';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
+import { ROUTES } from '../../data/constants';
 
 import './index.scss';
 
 const Cart = () => {
+  const carts = useSelector((state) => state.carts);
   const { id } = useParams();
-  const [cartUser, setCartUser] = useState();
+  const [cartUser, setCartUser] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getCartData = async () => {
     try {
       const userResponse = await getOneUser(id);
-      const cartResponse = await getUserCart(id);
       const productsResponse = await getAllProducts();
+      const userCart = carts.find((item) => item.id === parseInt(id));
 
-      if (cartResponse.data) {
-        const cartProducts = cartResponse.data.products.map(
-          (cartItem) => {
-            const productDetails = productsResponse.data.find(
-              (product) => product.id === cartItem.productId,
-            );
-            return {
-              ...productDetails,
-              quantity: cartItem.quantity,
-            };
-          },
-        );
-
-        const user = userResponse.data;
-        const updatedUser = {
-          ...user,
-          cart: cartProducts,
-        };
-        setCartUser(updatedUser);
+      if (userCart) {
+        const cartProducts = userCart.products.map((cartItem) => {
+          const productDetails = productsResponse.data.find(
+            (product) => product.id === cartItem.productId,
+          );
+          return {
+            ...productDetails,
+            quantity: cartItem.quantity,
+          };
+        });
+        setCartUser(userResponse.data);
+        setCartItems(cartProducts);
       } else {
-        const user = userResponse.data;
-        const updatedUser = {
-          ...user,
-          cart: [],
-        };
-        setCartUser(updatedUser);
+        console.log(userResponse);
+        if (userResponse.data) {
+          console.log('user, pero no cart');
+          setCartItems([]);
+          setCartUser(userResponse.data);
+        } else {
+          console.log(ROUTES.error);
+          navigate(`/${ROUTES.error}`);
+        }
       }
     } catch (error) {
       console.log('Error in Cart/index.jsx - getCartData', error);
     }
   };
 
+  const buyCartItems = () => {
+    try {
+      dispatch(buyCart({ userId: id, carts: carts }));
+      toast.success(
+        `You just buy ${cartUser.name.firstname} ${cartUser.name.lastname} cart!`,
+        {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        },
+      );
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - buyCartItems');
+    }
+  };
+
   useEffect(() => {
     getCartData();
-  }, []);
+  }, [carts]);
 
   return (
     <>
@@ -83,16 +110,18 @@ const Cart = () => {
         )}
         {cartUser ? (
           <>
-            <ProductList products={cartUser.cart} page={'cart'} />
-            {cartUser.cart.length > 0 && (
+            <ProductList products={cartItems} page={'cart'} />
+            {cartItems.length > 0 && (
               <div className="cart__buy">
                 <b>
                   Cart Total: $
-                  {cartUser.cart.reduce((total, item) => {
+                  {cartItems.reduce((total, item) => {
                     return total + item.price * item.quantity;
                   }, 0)}
                 </b>
-                <button>Buy Cart</button>
+                <button onClick={() => buyCartItems()}>
+                  Buy Cart
+                </button>
               </div>
             )}
           </>
@@ -101,6 +130,7 @@ const Cart = () => {
             <Spinner />
           </div>
         )}
+        <ToastContainer />
       </div>
     </>
   );
