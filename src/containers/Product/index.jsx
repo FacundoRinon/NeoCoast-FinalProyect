@@ -38,7 +38,8 @@ const Product = () => {
 
   const cartAdder = () => {
     try {
-      const userCart = carts.find((cart) => cart.id === user.id);
+      const userCart = carts.find((cart) => cart.userId === user.id);
+      console.log(userCart);
       if (userCart) {
         dispatch(
           addToCart({

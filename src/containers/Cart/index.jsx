@@ -20,6 +20,8 @@ const Cart = () => {
   const { id } = useParams();
   const [cartUser, setCartUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+  const [userCart, setUserCart] = useState([]);
+  const [cartPage, setCartPage] = useState(0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,22 +30,30 @@ const Cart = () => {
     try {
       const userResponse = await getOneUser(id);
       const productsResponse = await getAllProducts();
-      const userCart = carts.find((item) => item.id === parseInt(id));
+      const userCart = carts.filter(
+        (item) => item.userId === parseInt(id),
+      );
+      // console.log(carts);
+      console.log(userCart[0]);
+      // console.log(userCart.length);
 
-      if (userCart) {
-        const cartProducts = userCart.products.map((cartItem) => {
-          const productDetails = productsResponse.data.find(
-            (product) => product.id === cartItem.productId,
-          );
-          return {
-            ...productDetails,
-            quantity: cartItem.quantity,
-          };
-        });
+      if (userCart && userCart.length > 0) {
+        const cartProducts = userCart[cartPage].products.map(
+          (cartItem) => {
+            const productDetails = productsResponse.data.find(
+              (product) => product.id === cartItem.productId,
+            );
+            return {
+              ...productDetails,
+              quantity: cartItem.quantity,
+            };
+          },
+        );
+        setUserCart(userCart);
         setCartUser(userResponse.data);
         setCartItems(cartProducts);
       } else {
-        console.log(userResponse);
+        console.log(userCart);
         if (userResponse.data) {
           console.log('user, pero no cart');
           setCartItems([]);
@@ -60,7 +70,9 @@ const Cart = () => {
 
   const buyCartItems = () => {
     try {
-      dispatch(buyCart({ userId: id, carts: carts }));
+      dispatch(
+        buyCart({ userId: id, cartId: userCart[cartPage].id }),
+      );
       toast.success(
         `You just buy ${cartUser.name.firstname} ${cartUser.name.lastname} cart!`,
         {
@@ -74,14 +86,33 @@ const Cart = () => {
           theme: 'dark',
         },
       );
+      if (userCart.length > 0) {
+        changeCart();
+      }
     } catch (error) {
       console.log('Error in Cart/index.jsx - buyCartItems');
     }
   };
 
+  const changeCart = () => {
+    try {
+      console.log(cartPage + 1);
+      console.log(userCart.length);
+      if (userCart.length <= cartPage + 1) {
+        setCartPage(0);
+        console.log('entro');
+      } else {
+        setCartPage(cartPage + 1);
+        console.log(cartPage);
+      }
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - changeCart', error);
+    }
+  };
+
   useEffect(() => {
     getCartData();
-  }, [carts]);
+  }, [carts, cartPage]);
 
   return (
     <>
@@ -121,6 +152,9 @@ const Cart = () => {
                 </b>
                 <button onClick={() => buyCartItems()}>
                   Buy Cart
+                </button>
+                <button onClick={() => changeCart()}>
+                  Change cart
                 </button>
               </div>
             )}

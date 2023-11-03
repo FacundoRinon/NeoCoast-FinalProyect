@@ -63,9 +63,9 @@ const cartsSlice = createSlice({
     },
 
     buyCart(state, action) {
-      const { userId, carts } = action.payload;
-      const updatedCarts = carts.map((cart) =>
-        cart.id === parseInt(userId)
+      const { userId, cartId } = action.payload;
+      const updatedCarts = state.map((cart) =>
+        cart.userId === parseInt(userId) && cart.id === cartId
           ? { ...cart, products: [] }
           : cart,
       );
