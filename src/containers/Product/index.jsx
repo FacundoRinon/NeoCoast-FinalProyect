@@ -38,31 +38,61 @@ const Product = () => {
 
   const cartAdder = () => {
     try {
-      const userCart = carts.find((cart) => cart.userId === user.id);
-      console.log(userCart);
-      if (userCart) {
-        dispatch(
-          addToCart({
-            id,
-            userId: user.id,
-          }),
+      const userCarts = carts.filter((c) => c.userId === user.id);
+      const userCart = userCarts[user.activeCart];
+      // const userCartIndex = carts.findIndex(
+      //   (cart) => cart.userId === user.id,
+      // );
+      let updatedCart;
+
+      if (userCarts.length > 0) {
+        // Si el usuario ya tiene un carrito, encuentra el producto en el carrito
+        const productIndex = userCart.products.findIndex(
+          (p) => p.productId === parseInt(id),
         );
-        toast.success(`${product.title} added to your cart!`, {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
-        // navigate(`/cart/${user.id}`);
+
+        if (productIndex !== -1) {
+          // Si el producto ya está en el carrito, actualiza la cantidad
+          updatedCart = {
+            ...userCart,
+            products: userCart.products.map((product, index) =>
+              index === productIndex
+                ? { ...product, quantity: product.quantity + 1 }
+                : product,
+            ),
+          };
+        } else {
+          // Si el producto no está en el carrito, agrégalo
+          updatedCart = {
+            ...userCart,
+            products: [
+              ...userCart.products,
+              { productId: parseInt(id), quantity: 1 },
+            ],
+          };
+        }
       } else {
-        console.log('There is no cart');
+        // Si el usuario no tiene un carrito, crea uno nuevo
+        updatedCart = {
+          id: carts.length + 1,
+          userId: user.id,
+          products: [{ productId: parseInt(id), quantity: 1 }],
+        };
       }
+
+      dispatch(addToCart({ updatedCart }));
+      toast.success(`${product.title} added to your cart!`, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
     } catch (error) {
-      console.log('Error in Product/index.jsx - cartAdder');
+      console.log('Error in Product/index.jsx - cartAdder', error);
     }
   };
 

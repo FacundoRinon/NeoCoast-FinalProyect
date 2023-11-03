@@ -5,10 +5,10 @@ const userSlice = createSlice({
   initialState: null,
   reducers: {
     setUser(state, action) {
-      const { user, cart } = action.payload;
+      const { user } = action.payload;
       const updatedUser = {
         ...user,
-        cart: cart.products,
+        activeCart: 0,
       };
       return updatedUser;
     },

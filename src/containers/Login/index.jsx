@@ -51,23 +51,17 @@ const Login = () => {
           person.email === emailValue ||
           person.username === emailValue,
       );
-      let cart = [];
       if (filteredUsers.length === 0) {
         setCredentials('No user');
         setEmailValue('');
         setPasswordValue('');
       } else {
         const user = filteredUsers[0];
-        const filteredCart = carts.filter((c) => c.id === user.id);
-
-        if (filteredCart.length !== 0) {
-          cart = filteredCart[0];
-        }
         if (user.password !== passwordValue) {
           setCredentials('Wrong password');
           setPasswordValue('');
         } else {
-          dispatch(setUser({ user: user, cart: cart }));
+          dispatch(setUser({ user: user }));
           navigate('/');
         }
       }

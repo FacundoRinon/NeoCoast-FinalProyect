@@ -7,59 +7,20 @@ const cartsSlice = createSlice({
     setCarts(state, action) {
       return action.payload;
     },
-    addToCart(state, action) {
-      const { id, userId } = action.payload;
 
-      const updatedCarts = [...state];
-
-      const userCartIndex = updatedCarts.findIndex(
-        (cart) => cart.id === userId,
+    addToCart: (state, action) => {
+      const { updatedCart } = action.payload;
+      const existingCartIndex = state.findIndex(
+        (cart) => cart.userId === updatedCart.userId,
       );
 
-      if (userCartIndex !== -1) {
-        const updatedUserCart = { ...updatedCarts[userCartIndex] };
-
-        const existingProductIndex =
-          updatedUserCart.products.findIndex(
-            (product) => product.productId === parseInt(id),
-          );
-
-        if (existingProductIndex !== -1) {
-          const updatedProduct = {
-            ...updatedUserCart.products[existingProductIndex],
-            quantity:
-              updatedUserCart.products[existingProductIndex]
-                .quantity + 1,
-          };
-
-          updatedUserCart.products = [
-            ...updatedUserCart.products.slice(
-              0,
-              existingProductIndex,
-            ),
-            updatedProduct,
-            ...updatedUserCart.products.slice(
-              existingProductIndex + 1,
-            ),
-          ];
-
-          updatedCarts[userCartIndex] = updatedUserCart;
-        } else {
-          updatedUserCart.products = [
-            ...updatedUserCart.products,
-            {
-              productId: parseInt(id),
-              quantity: 1,
-            },
-          ];
-
-          updatedCarts[userCartIndex] = updatedUserCart;
-        }
+      if (existingCartIndex !== -1) {
+        // Si el carrito ya existe en el estado, reemplázalo
+        state[existingCartIndex] = updatedCart;
       } else {
-        console.log('There is no cart');
+        // Si el carrito no existe, agrégalo al final del estado
+        state.push(updatedCart);
       }
-
-      return updatedCarts;
     },
 
     buyCart(state, action) {
