@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getSingleProduct } from '../../api/products';
+import { ROUTES } from '../../data/constants';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
 
@@ -25,7 +26,11 @@ const Product = () => {
   const getProduct = async () => {
     try {
       const response = await getSingleProduct(id);
-      setProduct(response.data);
+      if (response.data) {
+        setProduct(response.data);
+      } else {
+        navigate(`/${ROUTES.error}`);
+      }
     } catch (error) {
       console.log('Error in Product/index.jsx - getProduct', error);
     }
