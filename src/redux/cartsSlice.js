@@ -15,10 +15,8 @@ const cartsSlice = createSlice({
       );
 
       if (existingCartIndex !== -1) {
-        // Si el carrito ya existe en el estado, reemplázalo
         state[existingCartIndex] = updatedCart;
       } else {
-        // Si el carrito no existe, agrégalo al final del estado
         state.push(updatedCart);
       }
     },

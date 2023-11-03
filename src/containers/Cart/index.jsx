@@ -33,9 +33,6 @@ const Cart = () => {
       const userCart = carts.filter(
         (item) => item.userId === parseInt(id),
       );
-      // console.log(carts);
-      console.log(userCart[0]);
-      // console.log(userCart.length);
 
       if (userCart && userCart.length > 0) {
         const cartProducts = userCart[cartPage].products.map(
@@ -53,13 +50,10 @@ const Cart = () => {
         setCartUser(userResponse.data);
         setCartItems(cartProducts);
       } else {
-        console.log(userCart);
         if (userResponse.data) {
-          console.log('user, pero no cart');
           setCartItems([]);
           setCartUser(userResponse.data);
         } else {
-          console.log(ROUTES.error);
           navigate(`/${ROUTES.error}`);
         }
       }
@@ -96,14 +90,10 @@ const Cart = () => {
 
   const changeCart = () => {
     try {
-      console.log(cartPage + 1);
-      console.log(userCart.length);
       if (userCart.length <= cartPage + 1) {
         setCartPage(0);
-        console.log('entro');
       } else {
         setCartPage(cartPage + 1);
-        console.log(cartPage);
       }
     } catch (error) {
       console.log('Error in Cart/index.jsx - changeCart', error);

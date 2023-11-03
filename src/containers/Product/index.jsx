@@ -40,19 +40,13 @@ const Product = () => {
     try {
       const userCarts = carts.filter((c) => c.userId === user.id);
       const userCart = userCarts[user.activeCart];
-      // const userCartIndex = carts.findIndex(
-      //   (cart) => cart.userId === user.id,
-      // );
       let updatedCart;
 
       if (userCarts.length > 0) {
-        // Si el usuario ya tiene un carrito, encuentra el producto en el carrito
         const productIndex = userCart.products.findIndex(
           (p) => p.productId === parseInt(id),
         );
-
         if (productIndex !== -1) {
-          // Si el producto ya está en el carrito, actualiza la cantidad
           updatedCart = {
             ...userCart,
             products: userCart.products.map((product, index) =>
@@ -62,7 +56,6 @@ const Product = () => {
             ),
           };
         } else {
-          // Si el producto no está en el carrito, agrégalo
           updatedCart = {
             ...userCart,
             products: [
@@ -72,7 +65,6 @@ const Product = () => {
           };
         }
       } else {
-        // Si el usuario no tiene un carrito, crea uno nuevo
         updatedCart = {
           id: carts.length + 1,
           userId: user.id,

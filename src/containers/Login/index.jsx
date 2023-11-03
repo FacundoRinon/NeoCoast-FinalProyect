@@ -35,8 +35,6 @@ const Login = () => {
   async function getCarts() {
     try {
       const response = await getUsersCarts();
-      console.log(response.data);
-      // setCarts(response.data);
       dispatch(setCarts(response.data));
     } catch (error) {
       console.log('Error in Login/index.jsx - getCarts', error);
