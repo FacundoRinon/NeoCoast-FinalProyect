@@ -16,6 +16,7 @@ import { ROUTES } from '../../data/constants';
 import './index.scss';
 
 const Cart = () => {
+  const user = useSelector((state) => state.user);
   const carts = useSelector((state) => state.carts);
   const { id } = useParams();
   const [cartUser, setCartUser] = useState(null);
@@ -131,7 +132,19 @@ const Cart = () => {
         )}
         {cartUser ? (
           <>
-            <ProductList products={cartItems} page={'cart'} />
+            {cartUser.id === user.id ? (
+              <ProductList
+                products={cartItems}
+                remove={true}
+                page={'cart'}
+              />
+            ) : (
+              <ProductList
+                products={cartItems}
+                remove={false}
+                page={'cart'}
+              />
+            )}
             {cartItems.length > 0 && (
               <div className="cart__buy">
                 <b>

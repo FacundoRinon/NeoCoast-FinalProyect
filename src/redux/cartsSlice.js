@@ -13,14 +13,19 @@ const cartsSlice = createSlice({
       const existingCartIndex = state.findIndex(
         (cart) => cart.userId === updatedCart.userId,
       );
-
       if (existingCartIndex !== -1) {
         state[existingCartIndex] = updatedCart;
       } else {
         state.push(updatedCart);
       }
     },
-
+    deleteFromCart: (state, action) => {
+      const { updatedCart } = action.payload;
+      const cartIndex = state.findIndex(
+        (cart) => cart.id === updatedCart.id,
+      );
+      state[cartIndex] = updatedCart;
+    },
     buyCart(state, action) {
       const { userId, cartId } = action.payload;
       const updatedCarts = state.map((cart) =>
@@ -34,5 +39,6 @@ const cartsSlice = createSlice({
 });
 
 const { actions, reducer } = cartsSlice;
-export const { setCarts, addToCart, buyCart } = actions;
+export const { setCarts, addToCart, deleteFromCart, buyCart } =
+  actions;
 export default reducer;
