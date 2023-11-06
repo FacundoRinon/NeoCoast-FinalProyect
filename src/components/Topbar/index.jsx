@@ -65,10 +65,6 @@ const Topbar = () => {
             <p className="topbar__login">
               <Link className="link--primary" to={'/login'}>
                 Log In
-                <FontAwesomeIcon
-                  className="drop__icon"
-                  // icon={faChevronDown}
-                />
               </Link>
             </p>
           )}

@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { deleteFromCart } from '../../redux/cartsSlice';
 
@@ -28,6 +30,15 @@ const CartProduct = ({ product, remove }) => {
       products: updatedProducts,
     };
     dispatch(deleteFromCart({ updatedCart }));
+    toast.error(`You just delete ${product.title} from this cart!`, {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      progress: undefined,
+      theme: 'dark',
+    });
   };
 
   return (
@@ -61,7 +72,9 @@ const CartProduct = ({ product, remove }) => {
         </div>
         {remove && (
           <div className="cartProduct__delete">
-            <button onClick={() => deleteProduct()}>Delete</button>
+            <button onClick={() => deleteProduct()}>
+              <FontAwesomeIcon icon={faTrash} size="2x" />
+            </button>
           </div>
         )}
       </div>

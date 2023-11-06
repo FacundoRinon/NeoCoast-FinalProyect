@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faArrowRight,
+} from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getAllProducts } from '../../api/products';
 import { getOneUser } from '../../api/users';
+import { setActiveCart } from '../../redux/userSlice';
 import { buyCart } from '../../redux/cartsSlice';
 import ProductList from 'Components/ProductList';
 import BackRow from 'Components/BackRow';
@@ -89,7 +95,7 @@ const Cart = () => {
     }
   };
 
-  const changeCart = () => {
+  const increaseCart = () => {
     try {
       if (userCart.length <= cartPage + 1) {
         setCartPage(0);
@@ -97,9 +103,43 @@ const Cart = () => {
         setCartPage(cartPage + 1);
       }
     } catch (error) {
-      console.log('Error in Cart/index.jsx - changeCart', error);
+      console.log('Error in Cart/index.jsx - increaseCart', error);
     }
   };
+
+  const decreaseCart = () => {
+    try {
+      if (userCart.length === 0) {
+        setCartPage(userCart.length - 1);
+      } else {
+        setCartPage(
+          cartPage === 0 ? userCart.length - 1 : cartPage - 1,
+        );
+      }
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - decreaseCart', error);
+    }
+  };
+
+  const setCart = () => {
+    try {
+      dispatch(setActiveCart({ cartPage }));
+      toast.success(`Cart ${cartPage + 1} is now active`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - setActiveCart', error);
+    }
+  };
+
+  console.log(cartPage);
 
   useEffect(() => {
     getCartData();
@@ -132,6 +172,24 @@ const Cart = () => {
         )}
         {cartUser ? (
           <>
+            <div className="cart__activeCart">
+              <button onClick={() => decreaseCart()}>
+                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+              </button>
+              {cartPage === user.activeCart ? (
+                <h3>
+                  This is your active cart ({cartPage + 1}/
+                  {userCart.length})
+                </h3>
+              ) : (
+                <h3>
+                  This is cart {cartPage + 1}/{userCart.length}
+                </h3>
+              )}
+              <button onClick={() => increaseCart()}>
+                <FontAwesomeIcon icon={faArrowRight} size="lg" />
+              </button>
+            </div>
             {cartUser.id === user.id ? (
               <ProductList
                 products={cartItems}
@@ -147,6 +205,7 @@ const Cart = () => {
             )}
             {cartItems.length > 0 && (
               <div className="cart__buy">
+                <button onClick={() => setCart()}>Active cart</button>
                 <b>
                   Cart Total: $
                   {cartItems.reduce((total, item) => {
@@ -155,9 +214,6 @@ const Cart = () => {
                 </b>
                 <button onClick={() => buyCartItems()}>
                   Buy Cart
-                </button>
-                <button onClick={() => changeCart()}>
-                  Change cart
                 </button>
               </div>
             )}

@@ -15,9 +15,17 @@ const userSlice = createSlice({
     removeUser(state, action) {
       return null;
     },
+    setActiveCart(state, action) {
+      const { cartPage } = action.payload;
+      const updatedUser = {
+        ...state,
+        activeCart: cartPage,
+      };
+      return updatedUser;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { setUser, removeUser } = actions;
+export const { setUser, removeUser, setActiveCart } = actions;
 export default reducer;

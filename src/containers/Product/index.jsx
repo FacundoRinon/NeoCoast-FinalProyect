@@ -74,7 +74,7 @@ const Product = () => {
 
       dispatch(addToCart({ updatedCart }));
       toast.success(`${product.title} added to your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -120,11 +120,13 @@ const Product = () => {
               <div className="product__price">
                 <p>${product.price}</p>
               </div>
-              <div className="product__adder">
-                <button onClick={() => cartAdder()}>
-                  Add to cart
-                </button>
-              </div>
+              {user && (
+                <div className="product__adder">
+                  <button onClick={() => cartAdder()}>
+                    Add to cart
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ) : (

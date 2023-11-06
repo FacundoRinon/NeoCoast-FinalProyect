@@ -11,7 +11,7 @@ const cartsSlice = createSlice({
     addToCart: (state, action) => {
       const { updatedCart } = action.payload;
       const existingCartIndex = state.findIndex(
-        (cart) => cart.userId === updatedCart.userId,
+        (cart) => cart.id === updatedCart.id,
       );
       if (existingCartIndex !== -1) {
         state[existingCartIndex] = updatedCart;
