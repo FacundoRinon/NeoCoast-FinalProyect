@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getAllProducts } from '../../api/products';
 import { getOneUser } from '../../api/users';
 import { setActiveCart } from '../../redux/userSlice';
-import { buyCart } from '../../redux/cartsSlice';
+import { buyCart, newCart } from '../../redux/cartsSlice';
 import ProductList from 'Components/ProductList';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
@@ -139,7 +139,14 @@ const Cart = () => {
     }
   };
 
-  console.log(cartPage);
+  const createCart = () => {
+    try {
+      dispatch(newCart({ id: parseInt(id) }));
+      setCartPage(userCart.length);
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - createCart', error);
+    }
+  };
 
   useEffect(() => {
     getCartData();
@@ -167,6 +174,9 @@ const Cart = () => {
               </h2>
               <p>{cartUser.username}</p>
               <p>{cartUser.email}</p>
+              {user.id == id && (
+                <button onClick={() => createCart()}>New cart</button>
+              )}
             </div>
           </div>
         )}
@@ -191,11 +201,18 @@ const Cart = () => {
               </button>
             </div>
             {cartUser.id === user.id ? (
-              <ProductList
-                products={cartItems}
-                remove={true}
-                page={'cart'}
-              />
+              <>
+                <button
+                  className="cart__button"
+                  onClick={() => setCart()}>
+                  Active cart
+                </button>
+                <ProductList
+                  products={cartItems}
+                  remove={true}
+                  page={'cart'}
+                />
+              </>
             ) : (
               <ProductList
                 products={cartItems}
@@ -203,16 +220,18 @@ const Cart = () => {
                 page={'cart'}
               />
             )}
+
             {cartItems.length > 0 && (
               <div className="cart__buy">
-                <button onClick={() => setCart()}>Active cart</button>
                 <b>
                   Cart Total: $
                   {cartItems.reduce((total, item) => {
                     return total + item.price * item.quantity;
                   }, 0)}
                 </b>
-                <button onClick={() => buyCartItems()}>
+                <button
+                  className="cart__button"
+                  onClick={() => buyCartItems()}>
                   Buy Cart
                 </button>
               </div>

@@ -35,10 +35,24 @@ const cartsSlice = createSlice({
       );
       return updatedCarts;
     },
+    newCart(state, action) {
+      const { id } = action.payload;
+      const cart = {
+        id: state.length + 1,
+        userId: id,
+        products: [],
+      };
+      state.push(cart);
+    },
   },
 });
 
 const { actions, reducer } = cartsSlice;
-export const { setCarts, addToCart, deleteFromCart, buyCart } =
-  actions;
+export const {
+  setCarts,
+  addToCart,
+  deleteFromCart,
+  buyCart,
+  newCart,
+} = actions;
 export default reducer;

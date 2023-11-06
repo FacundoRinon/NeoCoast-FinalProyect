@@ -21,6 +21,7 @@
       border: 3px solid white;
       color: white;
       background-color: $color-primary;
+      cursor: pointer;
     }
     & h3 {
       padding: 0.5rem;
@@ -44,8 +45,19 @@
 
     &__user {
       padding-left: 1rem;
+      padding-bottom: 1rem;
       & h2 {
         font-size: 2rem;
+      }
+      & button {
+        background-color: $color-primary;
+        color: white;
+        border: 2px solid $color-primary;
+        border-radius: 10px;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }
@@ -66,6 +78,13 @@
 
     &__user {
       padding-left: 1rem;
+      padding-bottom: 1rem;
+      & button {
+        background-color: $color-primary;
+        color: white;
+        border: 2px solid $color-primary;
+        border-radius: 10px;
+      }
     }
   }
 
@@ -79,13 +98,18 @@
     & b {
       margin: 2rem;
     }
-    & button {
-      margin: 2rem;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 10rem;
-      color: white;
-      background-color: $color-primary;
+  }
+
+  &__button {
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 10rem;
+    color: white;
+    background-color: $color-primary;
+    &:hover {
+      transform: scale(1.05);
+      cursor: pointer;
     }
   }
 
