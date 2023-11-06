@@ -54,7 +54,11 @@ const Cart = () => {
           },
         );
         setUserCart(userCart);
-        setCartUser(userResponse.data);
+        if (userResponse.data.id === user.id) {
+          setCartUser(user);
+        } else {
+          setCartUser(userResponse.data);
+        }
         setCartItems(cartProducts);
       } else {
         if (userResponse.data) {
@@ -88,10 +92,10 @@ const Cart = () => {
         },
       );
       if (userCart.length > 0) {
-        changeCart();
+        increaseCart();
       }
     } catch (error) {
-      console.log('Error in Cart/index.jsx - buyCartItems');
+      console.log('Error in Cart/index.jsx - buyCartItems', error);
     }
   };
 
@@ -202,11 +206,13 @@ const Cart = () => {
             </div>
             {cartUser.id === user.id ? (
               <>
-                <button
-                  className="cart__button"
-                  onClick={() => setCart()}>
-                  Active cart
-                </button>
+                {cartPage !== user.activeCart && (
+                  <button
+                    className="cart__button"
+                    onClick={() => setCart()}>
+                    Active cart
+                  </button>
+                )}
                 <ProductList
                   products={cartItems}
                   remove={true}
