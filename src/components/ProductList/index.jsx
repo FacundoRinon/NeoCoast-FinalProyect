@@ -26,7 +26,7 @@ const ProductList = ({ products, remove, page }) => {
             );
           })
         ) : (
-          <h2>This user's cart is empty.</h2>
+          <h2>This cart is empty.</h2>
         )
       ) : (
         <div className="productList__spinner">

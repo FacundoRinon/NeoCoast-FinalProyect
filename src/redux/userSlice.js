@@ -23,9 +23,40 @@ const userSlice = createSlice({
       };
       return updatedUser;
     },
+    editUser(state, action) {
+      const {
+        firstname,
+        lastname,
+        username,
+        city,
+        zipcode,
+        phone,
+        street,
+        number,
+      } = action.payload.newUser;
+      const newName = {
+        firstname,
+        lastname,
+      };
+      const newAddress = {
+        city: city,
+        street: street,
+        number: number,
+        zipcode: zipcode,
+      };
+      const newProfile = {
+        ...state,
+        name: newName,
+        address: newAddress,
+        username,
+        phone,
+      };
+      return newProfile;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { setUser, removeUser, setActiveCart } = actions;
+export const { setUser, removeUser, setActiveCart, editUser } =
+  actions;
 export default reducer;

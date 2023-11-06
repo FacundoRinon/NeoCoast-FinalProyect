@@ -8,6 +8,7 @@ import Layout from 'Components/Layout';
 import Login from 'Containers/Login';
 import Product from 'Containers/Product';
 import Profile from 'Containers/Profile';
+import EditProfile from 'Containers/EditProfile';
 import ProtectedRoute from 'Components/ProtectedRoute';
 import ErrorPage from 'Containers/ErrorPage';
 import { ROUTES } from 'Data/constants';
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="*" element={<ErrorPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path={ROUTES.profile} element={<Profile />} />
+          <Route path={ROUTES.edit} element={<EditProfile />} />
           <Route path={ROUTES.cart} element={<Cart />} />
           <Route path={ROUTES.gift} element={<Gift />} />
         </Route>

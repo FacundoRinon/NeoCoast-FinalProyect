@@ -20,7 +20,11 @@ const Profile = () => {
     try {
       const response = await getOneUser(id);
       if (response.data) {
-        setProfile(response.data);
+        if (response.data.id === user.id) {
+          setProfile(user);
+        } else {
+          setProfile(response.data);
+        }
       } else {
         navigate(`/${ROUTES.error}`);
       }
@@ -52,6 +56,11 @@ const Profile = () => {
                 </h3>
                 <p>{profile.username}</p>
                 <p>{profile.email}</p>
+                {user.id == id && (
+                  <button onClick={() => navigate(`${ROUTES.edit}`)}>
+                    Edit profile
+                  </button>
+                )}
               </div>
             </div>
             <div className="profile__address">
