@@ -6,16 +6,17 @@ import cn from 'classnames';
 import { getAllUsers, getUsersCarts } from '../../api/users';
 import { ROUTES } from '../../data/constants';
 import { setUser } from '../../redux/userSlice';
+import { setCarts } from '../../redux/cartsSlice';
 
 import './index.scss';
 
 const Login = () => {
   const user = useSelector((state) => state.user);
+  const carts = useSelector((state) => state.carts);
 
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [users, setUsers] = useState([]);
-  const [carts, setCarts] = useState([]);
   const [credentials, setCredentials] = useState(false);
 
   const dispatch = useDispatch();
@@ -34,8 +35,7 @@ const Login = () => {
   async function getCarts() {
     try {
       const response = await getUsersCarts();
-      console.log(response.data);
-      setCarts(response.data);
+      dispatch(setCarts(response.data));
     } catch (error) {
       console.log('Error in Login/index.jsx - getCarts', error);
     }
@@ -49,23 +49,17 @@ const Login = () => {
           person.email === emailValue ||
           person.username === emailValue,
       );
-      let cart = [];
       if (filteredUsers.length === 0) {
         setCredentials('No user');
         setEmailValue('');
         setPasswordValue('');
       } else {
         const user = filteredUsers[0];
-        const filteredCart = carts.filter((c) => c.id === user.id);
-
-        if (filteredCart.length !== 0) {
-          cart = filteredCart[0];
-        }
         if (user.password !== passwordValue) {
           setCredentials('Wrong password');
           setPasswordValue('');
         } else {
-          dispatch(setUser({ user: user, cart: cart }));
+          dispatch(setUser({ user: user }));
           navigate('/');
         }
       }

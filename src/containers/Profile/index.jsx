@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { getOneUser } from '../../api/users';
+import { ROUTES } from '../../data/constants';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
 
@@ -12,12 +13,17 @@ import './index.scss';
 const Profile = () => {
   const user = useSelector((state) => state.user);
   const { id } = useParams();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
 
   async function getProfile() {
     try {
       const response = await getOneUser(id);
-      setProfile(response.data);
+      if (response.data) {
+        setProfile(response.data);
+      } else {
+        navigate(`/${ROUTES.error}`);
+      }
     } catch (error) {
       console.log('Error in Profile/index.jsx - getProfile', error);
     }

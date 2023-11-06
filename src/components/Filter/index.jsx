@@ -41,9 +41,6 @@ const Filter = () => {
         (product) => product.category === selectedCategory.category,
       );
 
-  // console.log(categories);
-  console.log(selectedCategory.category);
-
   return (
     <div className="filter">
       {products.length > 0 ? (

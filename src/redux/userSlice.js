@@ -5,19 +5,27 @@ const userSlice = createSlice({
   initialState: null,
   reducers: {
     setUser(state, action) {
-      const { user, cart } = action.payload;
+      const { user } = action.payload;
       const updatedUser = {
         ...user,
-        cart: cart.products,
+        activeCart: 0,
       };
       return updatedUser;
     },
     removeUser(state, action) {
       return null;
     },
+    setActiveCart(state, action) {
+      const { cartPage } = action.payload;
+      const updatedUser = {
+        ...state,
+        activeCart: cartPage,
+      };
+      return updatedUser;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { setUser, removeUser } = actions;
+export const { setUser, removeUser, setActiveCart } = actions;
 export default reducer;

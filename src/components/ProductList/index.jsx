@@ -7,7 +7,7 @@ import Spinner from 'Components/Spinner';
 
 import './index.scss';
 
-const ProductList = ({ products, page }) => {
+const ProductList = ({ products, remove, page }) => {
   return (
     <div className="productList">
       {page === 'home' ? (
@@ -17,7 +17,13 @@ const ProductList = ({ products, page }) => {
       ) : page === 'cart' ? (
         products.length > 0 ? (
           products.map((product) => {
-            return <CartProduct key={product.id} product={product} />;
+            return (
+              <CartProduct
+                key={product.id}
+                product={product}
+                remove={remove}
+              />
+            );
           })
         ) : (
           <h2>This user's cart is empty.</h2>
@@ -33,6 +39,7 @@ const ProductList = ({ products, page }) => {
 
 ProductList.propTypes = {
   products: PropTypes.arrayOf(object),
+  remove: PropTypes.bool,
   page: PropTypes.string.isRequired,
 };
 

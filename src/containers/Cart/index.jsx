@@ -1,27 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faArrowRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getAllProducts } from '../../api/products';
-import { getOneUser, getUserCart } from '../../api/users';
+import { getOneUser } from '../../api/users';
+import { setActiveCart } from '../../redux/userSlice';
+import { buyCart, newCart } from '../../redux/cartsSlice';
 import ProductList from 'Components/ProductList';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
+import { ROUTES } from '../../data/constants';
 
 import './index.scss';
 
 const Cart = () => {
+  const user = useSelector((state) => state.user);
+  const carts = useSelector((state) => state.carts);
   const { id } = useParams();
-  const [cartUser, setCartUser] = useState();
+  const [cartUser, setCartUser] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const [userCart, setUserCart] = useState([]);
+  const [cartPage, setCartPage] = useState(0);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getCartData = async () => {
     try {
       const userResponse = await getOneUser(id);
-      const cartResponse = await getUserCart(id);
       const productsResponse = await getAllProducts();
+      const userCart = carts.filter(
+        (item) => item.userId === parseInt(id),
+      );
 
-      if (cartResponse.data) {
-        const cartProducts = cartResponse.data.products.map(
+      if (userCart && userCart.length > 0) {
+        const cartProducts = userCart[cartPage].products.map(
           (cartItem) => {
             const productDetails = productsResponse.data.find(
               (product) => product.id === cartItem.productId,
@@ -32,29 +53,104 @@ const Cart = () => {
             };
           },
         );
-
-        const user = userResponse.data;
-        const updatedUser = {
-          ...user,
-          cart: cartProducts,
-        };
-        setCartUser(updatedUser);
+        setUserCart(userCart);
+        setCartUser(userResponse.data);
+        setCartItems(cartProducts);
       } else {
-        const user = userResponse.data;
-        const updatedUser = {
-          ...user,
-          cart: [],
-        };
-        setCartUser(updatedUser);
+        if (userResponse.data) {
+          setCartItems([]);
+          setCartUser(userResponse.data);
+        } else {
+          navigate(`/${ROUTES.error}`);
+        }
       }
     } catch (error) {
       console.log('Error in Cart/index.jsx - getCartData', error);
     }
   };
 
+  const buyCartItems = () => {
+    try {
+      dispatch(
+        buyCart({ userId: id, cartId: userCart[cartPage].id }),
+      );
+      toast.success(
+        `You just buy ${cartUser.name.firstname} ${cartUser.name.lastname} cart!`,
+        {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        },
+      );
+      if (userCart.length > 0) {
+        changeCart();
+      }
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - buyCartItems');
+    }
+  };
+
+  const increaseCart = () => {
+    try {
+      if (userCart.length <= cartPage + 1) {
+        setCartPage(0);
+      } else {
+        setCartPage(cartPage + 1);
+      }
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - increaseCart', error);
+    }
+  };
+
+  const decreaseCart = () => {
+    try {
+      if (userCart.length === 0) {
+        setCartPage(userCart.length - 1);
+      } else {
+        setCartPage(
+          cartPage === 0 ? userCart.length - 1 : cartPage - 1,
+        );
+      }
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - decreaseCart', error);
+    }
+  };
+
+  const setCart = () => {
+    try {
+      dispatch(setActiveCart({ cartPage }));
+      toast.success(`Cart ${cartPage + 1} is now active`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - setActiveCart', error);
+    }
+  };
+
+  const createCart = () => {
+    try {
+      dispatch(newCart({ id: parseInt(id) }));
+      setCartPage(userCart.length);
+    } catch (error) {
+      console.log('Error in Cart/index.jsx - createCart', error);
+    }
+  };
+
   useEffect(() => {
     getCartData();
-  }, []);
+  }, [carts, cartPage]);
 
   return (
     <>
@@ -78,21 +174,66 @@ const Cart = () => {
               </h2>
               <p>{cartUser.username}</p>
               <p>{cartUser.email}</p>
+              {user.id == id && (
+                <button onClick={() => createCart()}>New cart</button>
+              )}
             </div>
           </div>
         )}
         {cartUser ? (
           <>
-            <ProductList products={cartUser.cart} page={'cart'} />
-            {cartUser.cart.length > 0 && (
+            <div className="cart__activeCart">
+              <button onClick={() => decreaseCart()}>
+                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+              </button>
+              {cartPage === user.activeCart ? (
+                <h3>
+                  This is your active cart ({cartPage + 1}/
+                  {userCart.length})
+                </h3>
+              ) : (
+                <h3>
+                  This is cart {cartPage + 1}/{userCart.length}
+                </h3>
+              )}
+              <button onClick={() => increaseCart()}>
+                <FontAwesomeIcon icon={faArrowRight} size="lg" />
+              </button>
+            </div>
+            {cartUser.id === user.id ? (
+              <>
+                <button
+                  className="cart__button"
+                  onClick={() => setCart()}>
+                  Active cart
+                </button>
+                <ProductList
+                  products={cartItems}
+                  remove={true}
+                  page={'cart'}
+                />
+              </>
+            ) : (
+              <ProductList
+                products={cartItems}
+                remove={false}
+                page={'cart'}
+              />
+            )}
+
+            {cartItems.length > 0 && (
               <div className="cart__buy">
                 <b>
                   Cart Total: $
-                  {cartUser.cart.reduce((total, item) => {
+                  {cartItems.reduce((total, item) => {
                     return total + item.price * item.quantity;
                   }, 0)}
                 </b>
-                <button>Buy Cart</button>
+                <button
+                  className="cart__button"
+                  onClick={() => buyCartItems()}>
+                  Buy Cart
+                </button>
               </div>
             )}
           </>
@@ -101,6 +242,7 @@ const Cart = () => {
             <Spinner />
           </div>
         )}
+        <ToastContainer />
       </div>
     </>
   );
