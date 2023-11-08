@@ -19,6 +19,9 @@ const Login = () => {
   const [users, setUsers] = useState([]);
   const [credentials, setCredentials] = useState(false);
 
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('wrong');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +31,8 @@ const Login = () => {
       console.log('response.data: ', response.data);
       setUsers(response.data);
     } catch (error) {
-      console.log('Error in Login/index.jsx - getUsers: ', error);
+      setMessage('wrong');
+      setError(true);
     }
   }
 
@@ -37,7 +41,8 @@ const Login = () => {
       const response = await getUsersCarts();
       dispatch(setCarts(response.data));
     } catch (error) {
-      console.log('Error in Login/index.jsx - getCarts', error);
+      setMessage('wrong');
+      setError(true);
     }
   }
 
@@ -64,7 +69,8 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.log('Error in Login/index.jsx - handleSubmit: ', error);
+      setMessage('wrong');
+      setError(true);
     }
   }
 
@@ -72,6 +78,14 @@ const Login = () => {
     getUsers();
     getCarts();
   }, []);
+
+  if (error) {
+    return (
+      <>
+        <ErrorPage message={message} />
+      </>
+    );
+  }
 
   if (user) {
     return <Navigate to={ROUTES.home} replace />;

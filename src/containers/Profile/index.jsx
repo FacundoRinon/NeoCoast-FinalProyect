@@ -33,7 +33,6 @@ const Profile = () => {
         setError(true);
       }
     } catch (error) {
-      console.log('Error in Profile/index.jsx - getProfile', error);
       setMessage('wrong');
       setError(true);
     }

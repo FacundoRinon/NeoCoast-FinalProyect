@@ -21,7 +21,6 @@ const Filter = () => {
       const response = await getAllProducts();
       setProducts(response.data);
     } catch (error) {
-      console.log('Error in Home/index.jsx - getProducts');
       setError(true);
     }
   };
@@ -31,7 +30,6 @@ const Filter = () => {
       const categoriesResponse = await getAllCategories();
       setCategories(categoriesResponse.data);
     } catch (error) {
-      console.log('Error in Home/index.jsx - getCategories');
       setError(true);
     }
   };

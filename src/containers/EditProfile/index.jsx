@@ -37,13 +37,9 @@ const EditProfile = () => {
   };
 
   async function editProfile(event) {
-    try {
-      event.preventDefault();
-      dispatch(editUser({ newUser }));
-      navigate(`/profile/${user.id}`);
-    } catch (error) {
-      console.log('Error in EditProfile/index.jsx - editProfile');
-    }
+    event.preventDefault();
+    dispatch(editUser({ newUser }));
+    navigate(`/profile/${user.id}`);
   }
 
   return (

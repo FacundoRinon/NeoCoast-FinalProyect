@@ -71,7 +71,6 @@ const Cart = () => {
         }
       }
     } catch (error) {
-      console.log('Error in Cart/index.jsx - getCartData', error);
       setMessage('wrong');
       setError(true);
     }
@@ -99,7 +98,8 @@ const Cart = () => {
         increaseCart();
       }
     } catch (error) {
-      console.log('Error in Cart/index.jsx - buyCartItems', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 
@@ -112,7 +112,8 @@ const Cart = () => {
         setCartPage(cartPage + 1);
       }
     } catch (error) {
-      console.log('Error in Cart/index.jsx - increaseCart', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 
@@ -127,7 +128,8 @@ const Cart = () => {
         );
       }
     } catch (error) {
-      console.log('Error in Cart/index.jsx - decreaseCart', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 
@@ -145,7 +147,8 @@ const Cart = () => {
         theme: 'dark',
       });
     } catch (error) {
-      console.log('Error in Cart/index.jsx - setActiveCart', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 
@@ -154,7 +157,8 @@ const Cart = () => {
       dispatch(newCart({ id: parseInt(id) }));
       setCartPage(userCart.length);
     } catch (error) {
-      console.log('Error in Cart/index.jsx - createCart', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 

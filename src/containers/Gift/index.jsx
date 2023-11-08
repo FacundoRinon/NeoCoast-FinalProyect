@@ -24,7 +24,6 @@ const Gift = () => {
       });
       setUsers(giftUsers);
     } catch (error) {
-      console.log('Error in Gift/index.jsx - getUsers: ', error);
       setError(true);
     }
   }
