@@ -70,7 +70,6 @@ const Cart = () => {
       }
     } catch (error) {
       console.log('Error in Cart/index.jsx - getCartData', error);
-      // isError(true);
     }
   };
 
@@ -155,7 +154,12 @@ const Cart = () => {
 
   useEffect(() => {
     getCartData();
-  }, [carts, cartPage, id]);
+  }, [carts, cartPage]);
+
+  useEffect(() => {
+    setCartUser(null);
+    getCartData();
+  }, [id]);
 
   return (
     <>
