@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import { getAllProducts, getAllCategories } from '../../api/products';
+import ErrorPage from 'Containers/ErrorPage';
 import ProductList from 'Components/ProductList';
 import Spinner from 'Components/Spinner';
 
@@ -12,12 +13,16 @@ const Filter = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('wrong');
+
   const getProducts = async () => {
     try {
       const response = await getAllProducts();
       setProducts(response.data);
     } catch (error) {
       console.log('Error in Home/index.jsx - getProducts');
+      setError(true);
     }
   };
 
@@ -27,6 +32,7 @@ const Filter = () => {
       setCategories(categoriesResponse.data);
     } catch (error) {
       console.log('Error in Home/index.jsx - getCategories');
+      setError(true);
     }
   };
 
@@ -40,6 +46,14 @@ const Filter = () => {
     : products.filter(
         (product) => product.category === selectedCategory.category,
       );
+
+  if (error) {
+    return (
+      <>
+        <ErrorPage message={message} />
+      </>
+    );
+  }
 
   return (
     <div className="filter">
@@ -69,6 +83,18 @@ const Filter = () => {
                   </p>
                 );
               })}
+            {categories.length > 0 && (
+              <p
+                className={cn('filter__category', {
+                  'filter__category--active':
+                    selectedCategory.category === 'games',
+                })}
+                onClick={() =>
+                  setSelectedCategory({ category: 'games' })
+                }>
+                games
+              </p>
+            )}
           </div>
           <div className="filter__list">
             <ProductList products={filteredProducts} page={'home'} />
