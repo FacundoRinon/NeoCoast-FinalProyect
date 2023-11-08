@@ -101,6 +101,7 @@ const Cart = () => {
 
   const increaseCart = () => {
     try {
+      setCartUser(null);
       if (userCart.length <= cartPage + 1) {
         setCartPage(0);
       } else {
@@ -113,6 +114,7 @@ const Cart = () => {
 
   const decreaseCart = () => {
     try {
+      setCartUser(null);
       if (userCart.length === 0) {
         setCartPage(userCart.length - 1);
       } else {
