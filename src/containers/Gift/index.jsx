@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getAllUsers } from '../../api/users';
+import ErrorPage from 'Containers/ErrorPage';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
 import UserRow from 'Components/UserRow';
@@ -12,6 +13,9 @@ const Gift = () => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState(null);
 
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('wrong');
+
   async function getUsers() {
     try {
       const response = await getAllUsers();
@@ -21,12 +25,22 @@ const Gift = () => {
       setUsers(giftUsers);
     } catch (error) {
       console.log('Error in Gift/index.jsx - getUsers: ', error);
+      setError(true);
     }
   }
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  if (error) {
+    return (
+      <>
+        <BackRow page={'Gift'} />
+        <ErrorPage message={message} />
+      </>
+    );
+  }
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartsSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getSingleProduct } from '../../api/products';
-import { ROUTES } from '../../data/constants';
+import ErrorPage from 'Containers/ErrorPage';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
 
@@ -20,8 +20,10 @@ const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('noProduct');
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const getProduct = async () => {
     try {
@@ -29,10 +31,13 @@ const Product = () => {
       if (response.data) {
         setProduct(response.data);
       } else {
-        navigate(ROUTES.error);
+        setError(true);
       }
     } catch (error) {
+      setError(true);
       console.log('Error in Product/index.jsx - getProduct', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 
@@ -91,6 +96,15 @@ const Product = () => {
   useEffect(() => {
     getProduct();
   }, []);
+
+  if (error) {
+    return (
+      <>
+        <BackRow page={'Product'} />
+        <ErrorPage message={message} />
+      </>
+    );
+  }
 
   return (
     <>

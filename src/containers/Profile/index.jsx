@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { getOneUser } from '../../api/users';
 import { ROUTES } from '../../data/constants';
+import ErrorPage from 'Containers/ErrorPage';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
 
@@ -16,6 +17,9 @@ const Profile = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
 
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('noUser');
+
   async function getProfile() {
     try {
       const response = await getOneUser(id);
@@ -26,17 +30,27 @@ const Profile = () => {
           setProfile(response.data);
         }
       } else {
-        navigate(ROUTES.error);
-        // hacer que si entro a este
+        setError(true);
       }
     } catch (error) {
       console.log('Error in Profile/index.jsx - getProfile', error);
+      setMessage('wrong');
+      setError(true);
     }
   }
 
   useEffect(() => {
     getProfile();
   }, []);
+
+  if (error) {
+    return (
+      <>
+        <BackRow page={'Profile'} />
+        <ErrorPage message={message} />
+      </>
+    );
+  }
 
   return (
     <>

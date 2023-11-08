@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,10 +14,10 @@ import { getAllProducts } from '../../api/products';
 import { getOneUser } from '../../api/users';
 import { setActiveCart } from '../../redux/userSlice';
 import { buyCart, newCart } from '../../redux/cartsSlice';
+import ErrorPage from 'Containers/ErrorPage';
 import ProductList from 'Components/ProductList';
 import BackRow from 'Components/BackRow';
 import Spinner from 'Components/Spinner';
-import { ROUTES } from '../../data/constants';
 
 import './index.scss';
 
@@ -30,7 +30,9 @@ const Cart = () => {
   const [userCart, setUserCart] = useState([]);
   const [cartPage, setCartPage] = useState(0);
 
-  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('noCart');
+
   const dispatch = useDispatch();
 
   const getCartData = async () => {
@@ -65,11 +67,13 @@ const Cart = () => {
           setCartItems([]);
           setCartUser(userResponse.data);
         } else {
-          navigate(ROUTES.error);
+          setError(true);
         }
       }
     } catch (error) {
       console.log('Error in Cart/index.jsx - getCartData', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 
@@ -162,6 +166,15 @@ const Cart = () => {
     setCartUser(null);
     getCartData();
   }, [id]);
+
+  if (error) {
+    return (
+      <>
+        <BackRow page={'Cart'} />
+        <ErrorPage message={message} />
+      </>
+    );
+  }
 
   return (
     <>
