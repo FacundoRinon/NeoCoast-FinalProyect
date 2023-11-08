@@ -20,7 +20,7 @@ const CartProduct = ({ product, remove }) => {
   const dispatch = useDispatch();
 
   const deleteProduct = () => {
-    const userCarts = carts.filter((c) => c.userId === user.id);
+    const userCarts = carts.filter((cart) => cart.userId === user.id);
     const userCart = userCarts[user.activeCart];
     const updatedProducts = userCart.products.filter(
       (item) => item.productId !== product.id,

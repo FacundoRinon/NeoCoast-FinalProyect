@@ -29,7 +29,7 @@ const Product = () => {
       if (response.data) {
         setProduct(response.data);
       } else {
-        navigate(`/${ROUTES.error}`);
+        navigate(ROUTES.error);
       }
     } catch (error) {
       console.log('Error in Product/index.jsx - getProduct', error);

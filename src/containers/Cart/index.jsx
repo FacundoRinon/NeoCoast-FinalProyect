@@ -65,11 +65,12 @@ const Cart = () => {
           setCartItems([]);
           setCartUser(userResponse.data);
         } else {
-          navigate(`/${ROUTES.error}`);
+          navigate(ROUTES.error);
         }
       }
     } catch (error) {
       console.log('Error in Cart/index.jsx - getCartData', error);
+      // isError(true);
     }
   };
 
@@ -154,7 +155,7 @@ const Cart = () => {
 
   useEffect(() => {
     getCartData();
-  }, [carts, cartPage]);
+  }, [carts, cartPage, id]);
 
   return (
     <>
@@ -190,15 +191,17 @@ const Cart = () => {
               <button onClick={() => decreaseCart()}>
                 <FontAwesomeIcon icon={faArrowLeft} size="lg" />
               </button>
-              {cartPage === user.activeCart ? (
+              {cartPage === user.activeCart && user.id == id ? (
                 <h3>
                   This is your active cart ({cartPage + 1}/
                   {userCart.length})
                 </h3>
               ) : (
-                <h3>
-                  This is cart {cartPage + 1}/{userCart.length}
-                </h3>
+                userCart.length > 0 && (
+                  <h3>
+                    This is cart {cartPage + 1}/{userCart.length}
+                  </h3>
+                )
               )}
               <button onClick={() => increaseCart()}>
                 <FontAwesomeIcon icon={faArrowRight} size="lg" />

@@ -8,4 +8,5 @@ export const ROUTES = {
   cart: '/cart/:id',
   gift: '/gift',
   edit: '/edit',
+  error: '/404',
 };
