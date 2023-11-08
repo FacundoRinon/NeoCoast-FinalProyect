@@ -65,7 +65,7 @@ const Cart = () => {
           setCartItems([]);
           setCartUser(userResponse.data);
         } else {
-          navigate(`/${ROUTES.error}`);
+          navigate(ROUTES.error);
         }
       }
     } catch (error) {
@@ -101,6 +101,7 @@ const Cart = () => {
 
   const increaseCart = () => {
     try {
+      setCartUser(null);
       if (userCart.length <= cartPage + 1) {
         setCartPage(0);
       } else {
@@ -113,6 +114,7 @@ const Cart = () => {
 
   const decreaseCart = () => {
     try {
+      setCartUser(null);
       if (userCart.length === 0) {
         setCartPage(userCart.length - 1);
       } else {
@@ -156,6 +158,11 @@ const Cart = () => {
     getCartData();
   }, [carts, cartPage]);
 
+  useEffect(() => {
+    setCartUser(null);
+    getCartData();
+  }, [id]);
+
   return (
     <>
       <BackRow page={'Cart'} />
@@ -190,15 +197,17 @@ const Cart = () => {
               <button onClick={() => decreaseCart()}>
                 <FontAwesomeIcon icon={faArrowLeft} size="lg" />
               </button>
-              {cartPage === user.activeCart ? (
+              {cartPage === user.activeCart && user.id == id ? (
                 <h3>
                   This is your active cart ({cartPage + 1}/
                   {userCart.length})
                 </h3>
               ) : (
-                <h3>
-                  This is cart {cartPage + 1}/{userCart.length}
-                </h3>
+                userCart.length > 0 && (
+                  <h3>
+                    This is cart {cartPage + 1}/{userCart.length}
+                  </h3>
+                )
               )}
               <button onClick={() => increaseCart()}>
                 <FontAwesomeIcon icon={faArrowRight} size="lg" />

@@ -17,7 +17,6 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      // width: 50%;
       cursor: pointer;
     }
 
@@ -36,17 +35,6 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: end;
-      width: 40%;
-    }
-
-    &__cart {
-      margin-right: 1rem;
-      font-size: 2rem;
-      cursor: pointer;
-
-      &:hover {
-        transform: scale(1.05);
-      }
     }
 
     &__user {
@@ -100,12 +88,6 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: end;
-      width: 50%;
-    }
-
-    &__cart {
-      margin-right: 1rem;
-      font-size: 1rem;
     }
 
     &__user {
@@ -144,6 +126,12 @@
   border-bottom: 5px solid $color-primary;
   background-color: white;
   z-index: 100;
+  clip-path: inset(0 0 100% 0);
+  transition: all 0.4s ease-in-out;
+
+  &--open {
+    clip-path: inset(0 0 0 0);
+  }
 
   &__actions {
     display: flex;
@@ -152,22 +140,18 @@
     align-items: center;
   }
 
-  @media (min-width: 577px) {
-    &__action {
-      width: 100%;
-      color: $color-primary;
-      font-size: 1.5rem;
-      padding: 0.5rem;
-      cursor: pointer;
+  &__action {
+    width: 100%;
+    color: $color-primary;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
 
-      &:hover {
-        transform: scale(1.05);
-      }
+    &:hover {
+      transform: scale(1.05);
     }
-  }
 
-  @media (max-width: 576px) {
-    &__action {
+    @media (max-width: 576px) {
       width: 100%;
       color: $color-primary;
       font-size: 1rem;

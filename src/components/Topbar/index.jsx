@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -70,8 +71,8 @@ const Topbar = () => {
           )}
         </div>
       </div>
-      {user && drop && (
-        <div className="drop">
+      {user && (
+        <div className={cn('drop', { 'drop--open': drop })}>
           <div className="drop__actions">
             <p className="drop__action">
               <Link

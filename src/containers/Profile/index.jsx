@@ -26,7 +26,8 @@ const Profile = () => {
           setProfile(response.data);
         }
       } else {
-        navigate(`/${ROUTES.error}`);
+        navigate(ROUTES.error);
+        // hacer que si entro a este
       }
     } catch (error) {
       console.log('Error in Profile/index.jsx - getProfile', error);
