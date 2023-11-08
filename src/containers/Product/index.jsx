@@ -34,8 +34,6 @@ const Product = () => {
         setError(true);
       }
     } catch (error) {
-      setError(true);
-      console.log('Error in Product/index.jsx - getProduct', error);
       setMessage('wrong');
       setError(true);
     }
@@ -89,7 +87,8 @@ const Product = () => {
         theme: 'dark',
       });
     } catch (error) {
-      console.log('Error in Product/index.jsx - cartAdder', error);
+      setMessage('wrong');
+      setError(true);
     }
   };
 

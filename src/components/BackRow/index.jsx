@@ -21,4 +21,8 @@ const BackRow = ({ page }) => {
   );
 };
 
+BackRow.propTypes = {
+  page: PropTypes.string,
+};
+
 export default BackRow;

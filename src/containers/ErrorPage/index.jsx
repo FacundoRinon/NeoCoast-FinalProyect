@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import './index.scss';
 
@@ -34,6 +35,10 @@ const ErrorPage = ({ message }) => {
       </div>
     </div>
   );
+};
+
+ErrorPage.propTypes = {
+  message: PropTypes.string,
 };
 
 export default ErrorPage;
