@@ -11,9 +11,13 @@ const ProductList = ({ products, remove, page }) => {
   return (
     <div className="productList">
       {page === 'home' ? (
-        products.map((product) => {
-          return <ProductCard key={product.id} product={product} />;
-        })
+        products.length > 0 ? (
+          products.map((product) => {
+            return <ProductCard key={product.id} product={product} />;
+          })
+        ) : (
+          <h2>There are no products in this category</h2>
+        )
       ) : page === 'cart' ? (
         products.length > 0 ? (
           products.map((product) => {

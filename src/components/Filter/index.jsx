@@ -83,6 +83,18 @@ const Filter = () => {
                   </p>
                 );
               })}
+            {categories.length > 0 && (
+              <p
+                className={cn('filter__category', {
+                  'filter__category--active':
+                    selectedCategory.category === 'games',
+                })}
+                onClick={() =>
+                  setSelectedCategory({ category: 'games' })
+                }>
+                games
+              </p>
+            )}
           </div>
           <div className="filter__list">
             <ProductList products={filteredProducts} page={'home'} />
