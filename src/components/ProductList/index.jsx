@@ -16,7 +16,9 @@ const ProductList = ({ products, remove, page }) => {
             return <ProductCard key={product.id} product={product} />;
           })
         ) : (
-          <h2>There are no products in this category</h2>
+          <div className="productList__empty">
+            <h2>There are no products in this category</h2>
+          </div>
         )
       ) : page === 'cart' ? (
         products.length > 0 ? (

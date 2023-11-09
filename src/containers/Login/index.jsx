@@ -7,12 +7,12 @@ import { getAllUsers, getUsersCarts } from '../../api/users';
 import { ROUTES } from '../../data/constants';
 import { setUser } from '../../redux/userSlice';
 import { setCarts } from '../../redux/cartsSlice';
+import ErrorPage from 'Containers/ErrorPage';
 
 import './index.scss';
 
 const Login = () => {
   const user = useSelector((state) => state.user);
-  const carts = useSelector((state) => state.carts);
 
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -106,7 +106,7 @@ const Login = () => {
               placeholder={
                 credentials === 'No user'
                   ? 'Wrong user'
-                  : 'example@mail.com'
+                  : 'Username or example@mail.com'
               }
               value={emailValue}
               onChange={(event) => setEmailValue(event.target.value)}

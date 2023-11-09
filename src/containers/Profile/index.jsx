@@ -39,8 +39,9 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    setProfile(null);
     getProfile();
-  }, []);
+  }, [id]);
 
   if (error) {
     return (
