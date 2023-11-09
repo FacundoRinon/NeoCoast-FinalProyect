@@ -94,9 +94,6 @@ const Cart = () => {
           theme: 'dark',
         },
       );
-      if (userCart.length > 0) {
-        increaseCart();
-      }
     } catch (error) {
       setMessage('wrong');
       setError(true);
@@ -211,9 +208,11 @@ const Cart = () => {
         {cartUser ? (
           <>
             <div className="cart__activeCart">
-              <button onClick={() => decreaseCart()}>
-                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
-              </button>
+              {userCart.length > 1 && (
+                <button onClick={() => decreaseCart()}>
+                  <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+                </button>
+              )}
               {cartPage === user.activeCart && user.id == id ? (
                 <h3>
                   This is your active cart ({cartPage + 1}/
@@ -226,9 +225,11 @@ const Cart = () => {
                   </h3>
                 )
               )}
-              <button onClick={() => increaseCart()}>
-                <FontAwesomeIcon icon={faArrowRight} size="lg" />
-              </button>
+              {userCart.length > 1 && (
+                <button onClick={() => increaseCart()}>
+                  <FontAwesomeIcon icon={faArrowRight} size="lg" />
+                </button>
+              )}
             </div>
             {cartUser.id === user.id ? (
               <>
@@ -236,14 +237,22 @@ const Cart = () => {
                   <button
                     className="cart__button"
                     onClick={() => setCart()}>
-                    Active cart
+                    Activate cart
                   </button>
                 )}
-                <ProductList
-                  products={cartItems}
-                  remove={true}
-                  page={'cart'}
-                />
+                {cartPage === user.activeCart ? (
+                  <ProductList
+                    products={cartItems}
+                    remove={true}
+                    page={'cart'}
+                  />
+                ) : (
+                  <ProductList
+                    products={cartItems}
+                    remove={false}
+                    page={'cart'}
+                  />
+                )}
               </>
             ) : (
               <ProductList

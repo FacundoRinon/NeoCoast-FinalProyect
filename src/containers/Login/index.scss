@@ -64,6 +64,10 @@
     border-radius: 5px;
     padding: 0.5rem;
     font-size: 1.2rem;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
   &__invitedButton {
@@ -76,6 +80,7 @@
     border: 3px solid white;
     border-radius: 10px;
     background-color: $color-primary;
+    cursor: pointer;
     &:hover {
       background-color: white;
       color: $color-primary;
