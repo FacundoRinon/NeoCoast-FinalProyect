@@ -46,15 +46,7 @@
     }
     @media (max-width: 575px) {
       width: 40%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin-bottom: 1rem;
-      img {
-        width: 70%;
-        border: 3px solid $color-primary;
-        border-radius: 50%;
-      }
     }
   }
 
@@ -68,16 +60,10 @@
       border-radius: 10px;
     }
     @media (min-width: 576px) {
-      padding-left: 1rem;
-      padding-bottom: 1rem;
       & h2 {
         font-size: 2rem;
       }
       & button {
-        background-color: $color-primary;
-        color: white;
-        border: 2px solid $color-primary;
-        border-radius: 10px;
         cursor: pointer;
         &:hover {
           transform: scale(1.05);
